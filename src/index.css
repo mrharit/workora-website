@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tailwind v4 CSS-first theme. No tailwind.config.js — tokens live here.
+   Values extracted from design-reference/workora.css.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Parkinsans", sans-serif;
+  --font-loopy: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-brand: #3557c1;
+  --color-brand-deep: #1a3a8f;
+  --color-brand-soft: #5a7fd6;
+  --color-brand-bright: #3080ff;
+  --color-brand-light: #54a2ff;
+
+  --color-ink-900: #0a1628;
+  --color-ink-800: #0d1e3d;
+  --color-ink-700: #0f2557;
+  --color-ink-600: #162a50;
+  --color-ink-500: #1e3a6e;
+  --color-ink-panel: #1a2744;
+
+  --color-accent-cyan: #00b7d7;
+  --color-accent-green: #00bb7f;
+  --color-accent-teal: #00baa7;
+  --color-accent-indigo: #625fff;
+  --color-accent-periwinkle: #7d87ff;
+  --color-accent-violet: #8d54ff;
+  --color-accent-purple: #ac4bff;
+  --color-accent-amber: #f99c00;
+
+  /* Loopy brand tokens — loopy-brand-assets/tokens/loopy-tokens.json */
+  --color-loopy-midnight: #0a1024;
+  --color-loopy-indigo: #1b2a55;
+  --color-loopy-periwinkle: #6c84d9;
+  --color-loopy-lifted: #a9b8ec;
+  --color-loopy-cloud: #f4f5f9;
+}
+
+/* ---------------------------------------------------------------------------
+   Base — the production site sets the face on the universal selector.
+--------------------------------------------------------------------------- */
+* {
+  font-family: Parkinsans, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #3557c1;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a4599;
+}
+
+:focus-visible {
+  outline: 2px solid #3557c1;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #3557c1;
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------------------
+   Animation layer — verbatim from the production stylesheet.
+--------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+@keyframes float {
+  0%,
+  to {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+@keyframes gradientMove {
+  0% {
+    background-position: 0%;
+  }
+  50% {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0%;
+  }
+}
+
+.animate-fadeInUp {
+  opacity: 0;
+  animation: 0.8s ease-out forwards fadeInUp;
+}
+.animate-fadeInDown {
+  opacity: 0;
+  animation: 0.8s ease-out forwards fadeInDown;
+}
+.animate-fadeInLeft {
+  opacity: 0;
+  animation: 0.8s ease-out forwards fadeInLeft;
+}
+.animate-fadeInRight {
+  opacity: 0;
+  animation: 0.8s ease-out forwards fadeInRight;
+}
+.animate-float {
+  animation: 6s ease-in-out infinite float;
+}
+.animate-scaleIn {
+  opacity: 0;
+  animation: 0.6s ease-out forwards scaleIn;
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, #0000, #fff6, #0000) 0 0 / 200% 100%;
+  animation: 2s infinite shimmer;
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: 5s infinite gradientMove;
+}
+
+.hover-lift {
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px #0000001a;
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-5px) scale(1.02);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #3557c1, #5a7fd6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: -0.1em;
+  padding-bottom: 0.1em;
+}
+
+.section-divider {
+  position: relative;
+}
+.section-divider::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #3557c1, #5a7fd6);
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #0000, #ffffff4d, #0000);
+  transition: left 0.5s;
+}
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff1a;
+  border-radius: 2px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ffffff4d;
+  border-radius: 2px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #ffffff80;
+}
+
+/* Loopy wordmark treatment — loopy-tokens.css */
+.loopy-type {
+  font-family: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.loopy-wordmark {
+  font-family: "Outfit", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  h2 {
+    font-size: 2rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-fadeInUp,
+  .animate-fadeInDown,
+  .animate-fadeInLeft,
+  .animate-fadeInRight,
+  .animate-scaleIn {
+    opacity: 1;
+  }
+}
