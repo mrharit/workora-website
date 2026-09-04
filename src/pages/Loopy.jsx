@@ -28,6 +28,8 @@ import {
   SectionHeading,
 } from '../components/ui.jsx'
 
+const WHATSAPP_LINK = 'https://wa.me/919044194343?text=Hi'
+
 /* ------------------------------------------------------------------ content */
 
 const CANDIDATE_STEPS = [
@@ -110,16 +112,23 @@ const CAPABILITIES = [
 
 /* ------------------------------------------------------------------ mockups */
 
+/** The hero mockup doubles as the live demo entry point — the whole card is a link to the real WhatsApp bot. */
 function ChatMockup() {
   return (
-    <div className="relative">
+    <a
+      href={WHATSAPP_LINK}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block hover-lift"
+      aria-label="Open a live chat with Loopy on WhatsApp"
+    >
       <div className="absolute inset-0 bg-gradient-to-r from-[#6C84D9]/30 to-[#A9B8EC]/20 rounded-3xl blur-2xl scale-95" />
       <div className="relative rounded-3xl bg-white shadow-2xl shadow-black/40 border border-white/10 overflow-hidden">
         <div className="px-5 py-4 bg-[#1B2A55] flex items-center gap-3">
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#6C84D9] to-[#A9B8EC] flex items-center justify-center">
             <Bot size={18} className="text-white" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <div className="text-white text-sm font-bold loopy-wordmark">
               Loopy
             </div>
@@ -127,6 +136,10 @@ function ChatMockup() {
               usually replies in under a minute
             </div>
           </div>
+          <span className="px-2.5 py-1 rounded-full bg-white/10 text-white/80 text-[11px] font-semibold flex items-center gap-1.5 shrink-0 group-hover:bg-white/20 transition-colors">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Tap to try it live
+          </span>
         </div>
 
         <div className="p-5 space-y-3 bg-[#F4F5F9] min-h-[360px]">
@@ -155,13 +168,15 @@ function ChatMockup() {
         </div>
 
         <div className="px-5 py-3 bg-white border-t border-gray-100 flex items-center gap-3">
-          <div className="flex-1 h-9 rounded-full bg-gray-50 border border-gray-200" />
-          <span className="w-9 h-9 rounded-full bg-[#1B2A55] flex items-center justify-center">
+          <div className="flex-1 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center px-4 text-sm text-gray-400">
+            Message Loopy on WhatsApp…
+          </div>
+          <span className="w-9 h-9 rounded-full bg-[#1B2A55] flex items-center justify-center group-hover:bg-[#6C84D9] transition-colors">
             <Send size={15} className="text-white" />
           </span>
         </div>
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -336,10 +351,13 @@ export default function Loopy() {
                 style={{ animationDelay: '0.45s' }}
               >
                 <a
-                  href="mailto:info@workoraindia.com?subject=Loopy%20demo"
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#6C84D9] to-[#1B2A55] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(108,132,217,0.5)] hover:-translate-y-1"
                 >
-                  See Loopy in action
+                  <MessageCircle size={18} />
+                  Chat with Loopy on WhatsApp
                   <ArrowRight
                     size={18}
                     className="group-hover:translate-x-1 transition-transform"
@@ -509,16 +527,18 @@ export default function Loopy() {
         ]}
         primary={
           <a
-            href="mailto:info@workoraindia.com?subject=Loopy%20demo"
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#6C84D9] to-white text-[#1B2A55] font-semibold rounded-xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(108,132,217,0.4)] hover:-translate-y-1"
           >
-            <Mail size={18} />
-            Request a demo
+            <MessageCircle size={18} />
+            Try Loopy on WhatsApp
           </a>
         }
         secondary={
           <GhostButton href="mailto:info@workoraindia.com?subject=Loopy%20questions">
-            <MessageCircle size={18} className="mr-1" />
+            <Mail size={18} className="mr-1" />
             Ask a question
           </GhostButton>
         }
