@@ -1,23 +1,19 @@
 import { useMemo, useState } from 'react'
 import {
   ArrowRight,
-  Award,
   BadgeCheck,
   Briefcase,
   ChevronDown,
   Clock,
   Compass,
-  Gift,
-  GraduationCap,
   Handshake,
-  Heart,
-  Laptop,
-  Lightbulb,
+  IndianRupee,
+  Lock,
   MapPin,
-  Plane,
+  MessageCircle,
+  Percent,
   Quote,
   Scale,
-  Search,
   Sparkles,
   Target,
   TrendingUp,
@@ -33,269 +29,269 @@ import {
 } from '../components/ui.jsx'
 
 const STATS = [
-  { value: '68', suffix: '', label: 'People on the team' },
-  { value: '3', suffix: '', label: 'Offices across Mumbai' },
-  { value: '3.4', suffix: ' yrs', label: 'Median tenure' },
-  { value: '1,900', suffix: '+', label: 'Placements closed in FY25' },
+  { value: '8', suffix: '', label: 'Live CXO & technology mandates' },
+  { value: '6', suffix: '', label: 'Sectors currently hiring' },
+  { value: '45', suffix: ' days', label: 'Median search timeline' },
+  { value: '100', suffix: '%', label: 'Mandates with a replacement guarantee' },
 ]
 
-const PILLARS = [
+const APPROACH = [
   {
-    icon: Target,
-    title: 'Ownership over hierarchy',
-    body: 'A consultant owns their mandate end to end — the brief, the pipeline, the client conversation, the closure. Approvals do not sit between you and your work.',
+    icon: Lock,
+    title: 'Confidential by default',
+    body: 'Every mandate runs under NDA. Your current employer is never approached, and a client’s identity is disclosed only once you agree to proceed.',
     gradient: 'from-blue-500 to-indigo-600',
   },
   {
-    icon: Heart,
-    title: 'Candidates are people',
-    body: 'Every applicant gets a reply, a reason, and a callback window we actually keep. We do not ghost, and we never charge a candidate a rupee.',
-    gradient: 'from-rose-500 to-orange-500',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Numbers you can see',
-    body: 'Submission ratios, interview-to-offer, time-to-fill and incentive accruals are visible to the whole team on a live board. No one guesses where they stand.',
-    gradient: 'from-emerald-500 to-teal-600',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Learn out loud',
-    body: 'Every Friday one person walks the floor through a mandate they lost and what they would do differently. Post-mortems are normal, not punitive.',
+    icon: Target,
+    title: 'Assessed beyond the resume',
+    body: 'Structured leadership assessments for CXO mandates, technical deep-dives for technology mandates — never a single unstructured conversation deciding an offer.',
     gradient: 'from-violet-500 to-purple-600',
   },
   {
-    icon: Scale,
-    title: 'Speed with governance',
-    body: 'Fast is only useful if it is repeatable. Every stage of a mandate is documented, so quality does not depend on who happens to be on the desk.',
+    icon: Users,
+    title: 'One consultant, start to finish',
+    body: 'You speak to the person actually running the mandate, every time — not a rotating queue of coordinators relaying messages.',
     gradient: 'from-cyan-500 to-blue-600',
   },
   {
-    icon: Handshake,
-    title: 'Long games beat quick wins',
-    body: 'We turn down mandates we cannot service well. A client relationship that lasts six years is worth more than six quarters of stretched delivery.',
+    icon: TrendingUp,
+    title: 'Market intelligence, not guesswork',
+    body: 'Compensation benchmarks, org-design comparables and sector movement inform the brief before a single candidate is approached.',
+    gradient: 'from-emerald-500 to-teal-600',
+  },
+  {
+    icon: Scale,
+    title: 'Fast, without cutting corners',
+    body: 'A structured five-stage process that closes CXO mandates in a median of 45 days — against an industry average closer to four months.',
     gradient: 'from-amber-500 to-orange-600',
+  },
+  {
+    icon: Handshake,
+    title: 'Built for retention, not just closure',
+    body: 'Every placement carries a replacement guarantee. We are measured on whether you are still there in year two, not on the day you sign.',
+    gradient: 'from-rose-500 to-red-600',
   },
 ]
 
-const BENEFITS = [
+const CANDIDATE_BENEFITS = [
   {
-    icon: Heart,
-    title: '₹5L family floater',
-    body: 'Health cover for you, your spouse, children and dependent parents from day one. No waiting period on the base policy.',
+    icon: Lock,
+    title: 'Confidentiality guaranteed',
+    body: 'Your search stays private. We never approach your current employer or reveal your candidacy without explicit sign-off at each stage.',
   },
   {
-    icon: Plane,
-    title: '24 earned leave + 10 holidays',
-    body: 'Plus 6 casual and 6 sick days. Leave does not need a justification, and unused earned leave is encashable.',
-  },
-  {
-    icon: Award,
-    title: 'Quarterly closure incentive',
-    body: 'Paid on collections, not on promises. Slabs are published at the start of the quarter and never revised mid-cycle.',
-  },
-  {
-    icon: GraduationCap,
-    title: '₹25,000 learning wallet',
-    body: 'Per year, per person. Certifications, conferences, courses — approved on a one-line request, not a business case.',
-  },
-  {
-    icon: Laptop,
-    title: 'Two flexible days a week',
-    body: 'Work from where you are on any two days you choose. Client-visit days are planned with your desk, not dictated.',
+    icon: IndianRupee,
+    title: 'Compensation benchmarking',
+    body: 'We benchmark your ask against real market data before you sit across the table, so you negotiate from fact, not a guess.',
   },
   {
     icon: Users,
-    title: 'Counselling support',
-    body: 'Confidential access to licensed therapists for you and your immediate family, at no cost and outside the company.',
+    title: 'One point of contact',
+    body: 'A single search consultant owns your mandate end to end — no handoffs, no repeating your story to five different people.',
   },
   {
-    icon: Gift,
-    title: '₹50,000 referral bonus',
-    body: 'For every referral who joins and crosses 90 days. Paid in full in the next payroll cycle, no clawback ladder.',
+    icon: MessageCircle,
+    title: 'Transparent feedback',
+    body: 'Real, specific feedback after every round — including the rounds that do not go your way.',
   },
   {
-    icon: Briefcase,
-    title: 'Hardware of choice',
-    body: 'MacBook or ThinkPad, a second monitor, and a phone plan that covers the calling you actually do.',
+    icon: Clock,
+    title: 'A process that moves',
+    body: 'Our median CXO search closes in 45 days. We chase the client side of the process so you are not left waiting on silence.',
+  },
+  {
+    icon: Target,
+    title: 'Structured, not vibes-based',
+    body: 'Leadership and technical assessments follow a consistent rubric across every mandate — not an unstructured conversation.',
+  },
+  {
+    icon: Percent,
+    title: 'Guided negotiation',
+    body: 'We manage the back-and-forth on fixed versus variable, ESOPs and notice-period buyout, so you are not negotiating directly against your future boss.',
+  },
+  {
+    icon: Handshake,
+    title: 'A relationship past joining',
+    body: 'We stay in touch well beyond your start date — many candidates come back to us when they are ready for the next mandate.',
   },
 ]
 
 const ROLES = [
   {
-    title: 'Recruitment Consultant — BFSI',
-    team: 'Delivery',
-    location: 'Andheri East, Mumbai',
-    band: '₹4.5 – 7.5 LPA',
-    type: 'Full-time',
-    experience: '2 – 4 years',
+    title: 'Chief Financial Officer',
+    category: 'CXO',
+    location: 'Mumbai',
+    band: '₹1.2 – 1.8 Cr + ESOPs',
+    seniority: '15+ years, at least 5 as CFO or deputy CFO',
+    client: 'Confidential — Series C fintech, ~₹250 Cr ARR',
     summary:
-      'Own BFSI mandates end to end for banking, insurance and NBFC clients — from intake call to offer acceptance.',
+      'Own the finance function for a fast-scaling lending fintech through its next fundraise and toward a public-market-ready structure.',
     responsibilities: [
-      'Run intake calls with hiring managers and convert briefs into calibrated search strategies',
-      'Source, screen and shortlist for mid-to-senior BFSI roles across sales, credit, risk and operations',
-      'Manage a live pipeline of 8 – 12 mandates with weekly client reporting',
-      'Prepare candidates for interviews and manage offer negotiation through to joining',
+      'Own fundraising strategy and investor relations through the Series D round',
+      'Build out FP&A, treasury and financial-controls functions as the company scales past ₹250 Cr ARR',
+      'Partner with the board on unit economics, burn discipline and the path to profitability',
+      'Lead statutory, tax and regulatory compliance across every state the company lends in',
     ],
     requirements: [
-      '2 – 4 years in agency or in-house recruitment, with at least one year in BFSI',
-      'Comfortable with Naukri, LinkedIn Recruiter and a structured ATS',
-      'A track record you can talk through — closures, ratios, and what you learned from the misses',
-      'Fluent English and Hindi; Marathi is a plus for branch-network hiring',
+      '15+ years in finance leadership, with at least 5 as CFO or deputy CFO',
+      'Direct experience raising institutional capital at Series C or later',
+      'NBFC or lending-fintech background strongly preferred',
+      'Comfortable presenting to a board with institutional investors on it',
     ],
   },
   {
-    title: 'Senior Recruitment Consultant — Technology',
-    team: 'Delivery',
-    location: 'Andheri East, Mumbai',
-    band: '₹8 – 13 LPA',
-    type: 'Full-time',
-    experience: '5 – 8 years',
+    title: 'Chief Technology Officer',
+    category: 'CXO',
+    location: 'Bengaluru',
+    band: '₹1.5 – 2.2 Cr + ESOPs',
+    seniority: '14+ years, 5+ leading an org of 80 or more',
+    client: 'Confidential — D2C consumer-tech platform, Series D',
     summary:
-      'Lead technology mandates for product and services clients, and mentor two to three junior consultants on the desk.',
+      'Rebuild the technology roadmap and engineering culture as the company moves from a single monolith to a multi-team platform.',
     responsibilities: [
-      'Own niche and leadership technology searches — platform, data, security and engineering management',
-      'Build market maps and talent-pool intelligence that clients use for workforce planning',
-      'Set quality bars for the desk: screening rubrics, submission templates, feedback SLAs',
-      'Coach juniors through their first independent closures',
+      'Rebuild the engineering roadmap around a multi-team platform, moving off the current monolith',
+      'Grow and structure an 80-person engineering org across four pods',
+      'Own technology partnerships, build-vs-buy calls and the infrastructure cost curve',
+      'Sit on the leadership team and translate technology bets into business outcomes',
     ],
     requirements: [
-      '5 – 8 years in technology recruitment with demonstrable senior-level closures',
-      'Ability to hold a credible technical conversation across at least two stacks',
-      'Experience running a desk or mentoring recruiters',
-      'Strong written communication — your submission notes should stand on their own',
+      '14+ years in engineering, with 5+ years leading orgs of 80 or more',
+      'Direct experience taking a platform from monolith to services',
+      'D2C or high-traffic consumer platform experience preferred',
+      'A track record of hiring and retaining engineering leaders, not just engineers',
     ],
   },
   {
-    title: 'Sourcing Specialist',
-    team: 'Sourcing',
-    location: 'Powai, Mumbai',
-    band: '₹3 – 5 LPA',
-    type: 'Full-time',
-    experience: '1 – 3 years',
+    title: 'Chief Human Resources Officer',
+    category: 'CXO',
+    location: 'Mumbai',
+    band: '₹90L – 1.4 Cr',
+    seniority: '16+ years, NBFC or BFSI experience preferred',
+    client: 'Confidential — NBFC, 3,000+ employees across 60 branches',
     summary:
-      'Build the top of the funnel. Deep sourcing across job boards, communities and non-traditional digital footprints.',
+      'Lead HR strategy through a branch-network expansion and a shift to a performance-linked compensation model.',
     responsibilities: [
-      'Run boolean and x-ray searches across LinkedIn, Naukri, GitHub and niche communities',
-      'Qualify candidates on availability, compensation expectation and role fit before handoff',
-      'Maintain talent pools by skill and location so repeat mandates start warm',
-      'Report daily on outreach volume, response rate and qualified-handoff conversion',
+      'Design a performance-linked compensation model ahead of a branch-network expansion',
+      'Own HR policy, statutory compliance and employee relations across 60+ branches',
+      'Build leadership pipelines for branch-manager and regional roles',
+      'Partner with the CEO on culture and retention as headcount crosses 3,000',
     ],
     requirements: [
-      '1 – 3 years in sourcing or research, agency or in-house',
-      'Genuinely good boolean; you should be able to explain a search string you are proud of',
-      'Organised — a messy pipeline is the failure mode of this role',
-      'Curiosity about industries you have not worked in yet',
+      '16+ years in HR leadership, NBFC or BFSI experience strongly preferred',
+      'Experience running HR across a multi-location branch network',
+      'Direct exposure to performance-linked and variable compensation design',
+      'Comfortable operating as a business partner to regional leadership, not just a policy owner',
     ],
   },
   {
-    title: 'Talent Research Analyst',
-    team: 'Sourcing',
-    location: 'Remote (India)',
-    band: '₹4 – 6.5 LPA',
-    type: 'Full-time',
-    experience: '2 – 4 years',
+    title: 'Chief Operating Officer',
+    category: 'CXO',
+    location: 'Pune',
+    band: '₹1.1 – 1.6 Cr',
+    seniority: '15+ years, multi-plant manufacturing operations',
+    client: 'Confidential — Auto-components manufacturing group, 4 plants',
     summary:
-      'Turn market noise into hiring intelligence — org charts, compensation benchmarks and competitor movement.',
+      'Own end-to-end operations across four plants as the group prepares for a capacity expansion and a new export line.',
     responsibilities: [
-      'Produce market maps and org charts for client workforce-planning conversations',
-      'Track salary movement and attrition signals across BFSI, technology and consumer sectors',
-      'Build the compensation benchmark library the delivery desks quote from',
-      'Turn research into short, readable briefs — not 40-slide decks',
+      'Own end-to-end operations across four manufacturing plants',
+      'Lead a capacity expansion and the launch of a new export line',
+      'Drive operational efficiency, quality systems and vendor governance',
+      'Report directly to the group CEO and sit on the executive committee',
     ],
     requirements: [
-      '2 – 4 years in talent research, market intelligence or a comparable analyst role',
-      'Strong spreadsheet skills and a habit of citing where a number came from',
-      'Clear written English; this role is judged on the quality of its briefs',
-      'Self-directed — the role is remote and lightly supervised by design',
+      '15+ years in operations leadership, multi-plant manufacturing background',
+      'Direct experience with capacity expansion or greenfield plant setup',
+      'Exposure to export compliance and international quality certifications',
+      'A demonstrated record of improving plant-level efficiency metrics',
     ],
   },
   {
-    title: 'Account Manager — Client Success',
-    team: 'Client Success',
-    location: 'BKC, Mumbai',
-    band: '₹10 – 16 LPA',
-    type: 'Full-time',
-    experience: '5 – 9 years',
+    title: 'VP Engineering',
+    category: 'Technology',
+    location: 'Bengaluru',
+    band: '₹80L – 1.1 Cr + ESOPs',
+    seniority: '12+ years, 4+ years managing managers',
+    client: 'Confidential — Enterprise SaaS scale-up, Series C',
     summary:
-      'Own the health of a portfolio of enterprise accounts — delivery quality, commercials, renewals and expansion.',
+      'Scale a 60-person engineering organisation through a platform re-architecture without slowing feature velocity.',
     responsibilities: [
-      'Run quarterly business reviews with client HR and business leadership',
-      'Hold the delivery desks to SLA and escalate early when a mandate is drifting',
-      'Own commercial terms, renewals and expansion into new business units',
-      'Be the single accountable name on the account when something goes wrong',
+      'Scale a 60-person engineering organisation through a platform re-architecture',
+      'Own delivery velocity, on-call health and engineering quality bars',
+      'Build a management layer under you — hire and develop 4–6 engineering managers',
+      'Partner with product and design leadership on the roadmap',
     ],
     requirements: [
-      '5 – 9 years in account management, client success or recruitment delivery leadership',
-      'Comfortable presenting to CHRO and business-head audiences',
-      'Numerate — you should be able to defend a margin conversation',
-      'Willing to travel within Mumbai for client meetings most weeks',
+      '12+ years in engineering, 4+ years managing managers',
+      'Direct experience re-architecting a platform without stalling feature delivery',
+      'Enterprise SaaS or B2B platform background preferred',
+      'Comfortable being measured on both delivery and team-health metrics',
     ],
   },
   {
-    title: 'Business Development Manager',
-    team: 'Growth',
-    location: 'BKC, Mumbai',
-    band: '₹9 – 15 LPA',
-    type: 'Full-time',
-    experience: '4 – 8 years',
+    title: 'Director of Data & AI',
+    category: 'Technology',
+    location: 'Gurugram',
+    band: '₹75L – 95L',
+    seniority: '10+ years, applied ML in a regulated industry',
+    client: 'Confidential — Digital lending platform',
     summary:
-      'Open new logos for staffing, RPO and HR operations. Consultative selling, not cold-call volume.',
+      'Build the data and applied-ML function from the ground up, starting with credit-risk models and collections analytics.',
     responsibilities: [
-      'Build and work a pipeline of target accounts across Mumbai, Pune and the wider west region',
-      'Run discovery conversations that diagnose a hiring problem before proposing a service',
-      'Own proposals, commercial structuring and contract closure with legal support',
-      'Hand over cleanly to delivery and stay involved through the first two mandates',
+      'Build the data and applied-ML function from the ground up',
+      'Ship credit-risk and collections models into production lending decisions',
+      'Establish data governance and model-risk practices for a regulated lender',
+      'Hire the founding data science and ML engineering team',
     ],
     requirements: [
-      '4 – 8 years selling recruitment, HR services or B2B services to enterprise buyers',
-      'A network you can actually activate in the west region',
-      'Comfort with a long sales cycle and a documented CRM discipline',
-      'You are measured on signed contracts and first-mandate success, not meetings booked',
+      '10+ years in data/ML, with applied credit-risk or fraud modelling experience',
+      'Comfortable operating in a regulated, audit-heavy environment',
+      'Experience building a data function from zero, not just running an existing one',
+      'Hands-on enough to review model code, not only strategy',
     ],
   },
   {
-    title: 'HR Operations Executive',
-    team: 'Internal HR',
-    location: 'Andheri East, Mumbai',
-    band: '₹3.5 – 5.5 LPA',
-    type: 'Full-time',
-    experience: '2 – 4 years',
+    title: 'Head of Product Engineering',
+    category: 'Technology',
+    location: 'Bengaluru',
+    band: '₹65L – 90L',
+    seniority: '10+ years, consumer health or wellness product preferred',
+    client: 'Confidential — Healthtech platform, Series B',
     summary:
-      'Run payroll, attendance, statutory filings and the employee lifecycle for Workora’s own team.',
+      'Own the product engineering roadmap across the patient and provider apps as the platform expands to three new states.',
     responsibilities: [
-      'Process monthly payroll and coordinate PF, ESIC, professional tax and TDS filings',
-      'Own onboarding, confirmation, transfer and exit documentation',
-      'Maintain attendance and leave records and resolve employee queries within 48 hours',
-      'Support the annual Form 16 issuance and audit responses',
+      'Own the product engineering roadmap across patient and provider-facing apps',
+      'Lead the platform through an expansion into three new states',
+      'Balance clinical-safety requirements against product velocity',
+      'Build a product engineering team structure ahead of the scale-up',
     ],
     requirements: [
-      '2 – 4 years in HR operations or payroll, ideally in a services business',
-      'Working knowledge of EPF, ESIC, PT and Section 192 TDS mechanics',
-      'Accuracy under a deadline — payroll does not get to be late',
-      'Discretion with confidential employee information',
+      '10+ years in product engineering, healthtech or regulated consumer product preferred',
+      'Experience shipping consumer and provider-facing apps from the same platform',
+      'Comfortable working alongside clinical and compliance stakeholders',
+      'A track record of scaling a product engineering team through 2–3x growth',
     ],
   },
   {
-    title: 'Delivery Manager',
-    team: 'Delivery',
-    location: 'Thane, Mumbai',
-    band: '₹14 – 20 LPA',
-    type: 'Full-time',
-    experience: '8 – 12 years',
+    title: 'Principal Security Architect',
+    category: 'Technology',
+    location: 'Hyderabad',
+    band: '₹70L – 1 Cr',
+    seniority: '10+ years, payments or fintech infrastructure security',
+    client: 'Confidential — Payments infrastructure company',
     summary:
-      'Lead a delivery pod of 10 – 14 consultants across multiple accounts. Own throughput, quality and retention.',
+      'Own the security architecture for a payments platform processing seven-figure daily transaction volumes ahead of a PCI-DSS recertification.',
     responsibilities: [
-      'Own pod-level delivery metrics: time-to-fill, submission-to-interview, offer-to-join',
-      'Allocate mandates across the pod and rebalance when a desk is under water',
-      'Run weekly one-on-ones and quarterly performance conversations',
-      'Partner with account management on escalations and with growth on solution design',
+      'Own security architecture for a payments platform at seven-figure daily transaction volumes',
+      'Lead the technical workstream for an upcoming PCI-DSS recertification',
+      'Set secure-by-design standards across the payments and settlement stack',
+      'Partner with engineering leadership on incident response and threat modelling',
     ],
     requirements: [
-      '8 – 12 years in recruitment with at least three years managing recruiters',
-      'A history of retaining a team — we will ask about attrition on your last pod',
-      'Fluency with delivery dashboards and the discipline to run to them',
-      'Calm in escalations; this role is most visible on the bad days',
+      '10+ years in security architecture, payments or fintech infrastructure preferred',
+      'Direct experience through at least one PCI-DSS certification cycle',
+      'Strong grasp of settlement, reconciliation and payments-specific attack surfaces',
+      'Comfortable being the final technical authority on security trade-offs',
     ],
   },
 ]
@@ -303,37 +299,37 @@ const ROLES = [
 const PROCESS = [
   {
     step: '01',
-    title: 'Application review',
+    title: 'Confidential intake',
     duration: '2 working days',
-    body: 'A human reads it. You get a yes or a no with a reason — never silence.',
-    icon: Search,
+    body: 'A private conversation with the mandate’s lead consultant. Nothing moves to the client without your explicit go-ahead.',
+    icon: Lock,
   },
   {
     step: '02',
-    title: 'Intro call with TA',
-    duration: '30 minutes',
-    body: 'Your background, what you want next, the honest version of the role, and the compensation band up front.',
+    title: 'Consultant deep-dive',
+    duration: '45 – 60 minutes',
+    body: 'Your track record, what you’re solving for next, and an honest read on the mandate — including compensation, up front.',
     icon: Users,
   },
   {
     step: '03',
-    title: 'Craft round',
-    duration: '60 minutes',
-    body: 'A live simulation of the actual job — an intake call, a search strategy, a client escalation. No trick questions.',
+    title: 'Leadership assessment',
+    duration: 'Varies by mandate',
+    body: 'A case-based strategy review for CXO mandates; a technical and architecture deep-dive for technology mandates.',
     icon: Compass,
   },
   {
     step: '04',
-    title: 'Hiring manager & business round',
-    duration: '45 minutes',
-    body: 'The person you would report to, plus one leader from the business you would serve.',
+    title: 'Client panel rounds',
+    duration: '2 – 3 sessions',
+    body: 'Board members, the CEO, or the relevant functional leadership, depending on the mandate. We prep you before every round.',
     icon: Briefcase,
   },
   {
     step: '05',
-    title: 'Offer & documentation',
-    duration: '3 working days',
-    body: 'Written offer with the full CTC break-up, incentive slabs and joining date agreed before you sign.',
+    title: 'Offer, references & onboarding',
+    duration: '1 – 2 weeks',
+    body: 'Reference checks run in parallel with offer negotiation. We stay involved through your first 90 days on the job.',
     icon: BadgeCheck,
   },
 ]
@@ -341,35 +337,35 @@ const PROCESS = [
 const VOICES = [
   {
     quote:
-      'I joined as a sourcer with eleven months of experience and no BFSI background. Eighteen months later I was running my own mandates. Nobody made me wait my turn — they made me ready.',
-    name: 'Shruti Kulkarni',
-    role: 'Recruitment Consultant, BFSI',
-    tenure: '2 years 4 months',
+      'The process was the most rigorous I’ve been through — and the most respectful of my confidentiality. My employer at the time never found out I was in conversation until the day I resigned.',
+    name: 'Rajiv Malhotra',
+    role: 'Placed as Chief Financial Officer, fintech',
+    tenure: '14 months into the role',
   },
   {
     quote:
-      'The Friday loss reviews were uncomfortable for about a month, and then they became the most useful hour of my week. You learn faster when the misses are on the table.',
-    name: 'Aditya Raut',
-    role: 'Senior Recruitment Consultant, Technology',
-    tenure: '3 years 1 month',
+      'I got the honest read on compensation and scope in the very first call, not after three rounds of interviews. That alone saved me weeks I would otherwise have wasted.',
+    name: 'Ananya Reddy',
+    role: 'Placed as VP Engineering, enterprise SaaS',
+    tenure: '9 months into the role',
   },
   {
     quote:
-      'I asked to move from delivery into client success and it took one conversation. The internal-mobility policy is not a poster on a wall here, it is a form and a two-week process.',
-    name: 'Fatima Shaikh',
-    role: 'Account Manager, Client Success',
-    tenure: '4 years 7 months',
+      'I spoke to the same consultant from the first call to the signed offer. No hand-offs, no re-explaining my situation to someone new every stage.',
+    name: 'Karthik Subramaniam',
+    role: 'Placed as Chief Technology Officer, D2C platform',
+    tenure: '19 months into the role',
   },
   {
     quote:
-      'Incentives are published at the start of the quarter and paid on collections. In five years nobody has moved my goalposts in month three. That is rarer in this industry than it should be.',
-    name: 'Nikhil Deshpande',
-    role: 'Delivery Manager',
-    tenure: '5 years 2 months',
+      'Eighteen months after I joined, the same consultant called to check in — not to sell me on anything, just to ask how it was going. That is not the norm in this industry.',
+    name: 'Meenal Deshpande',
+    role: 'Placed as Chief Human Resources Officer, NBFC',
+    tenure: '22 months into the role',
   },
 ]
 
-const TEAMS = ['All roles', 'Delivery', 'Sourcing', 'Client Success', 'Growth', 'Internal HR']
+const CATEGORIES = ['All mandates', 'CXO', 'Technology']
 
 function RoleCard({ role, open, onToggle }) {
   return (
@@ -390,7 +386,7 @@ function RoleCard({ role, open, onToggle }) {
           <div className="flex flex-wrap items-center gap-3 mb-2">
             <h3 className="text-lg font-bold text-gray-900">{role.title}</h3>
             <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#3557C1]/10 text-[#3557C1]">
-              {role.team}
+              {role.category}
             </span>
           </div>
           <p className="text-sm text-gray-600 leading-relaxed mb-3">
@@ -403,11 +399,11 @@ function RoleCard({ role, open, onToggle }) {
             </span>
             <span className="flex items-center gap-1.5">
               <Briefcase size={14} className="text-[#3557C1]" />
-              {role.experience}
+              {role.seniority}
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock size={14} className="text-[#3557C1]" />
-              {role.type}
+              <Lock size={14} className="text-[#3557C1]" />
+              {role.client}
             </span>
           </div>
         </div>
@@ -415,7 +411,7 @@ function RoleCard({ role, open, onToggle }) {
         <div className="flex items-center gap-4 shrink-0">
           <div className="text-right">
             <div className="text-base font-bold text-gray-900">{role.band}</div>
-            <div className="text-xs text-gray-500">Fixed CTC</div>
+            <div className="text-xs text-gray-500">Compensation range</div>
           </div>
           <span
             className={`w-9 h-9 rounded-full bg-[#3557C1]/10 text-[#3557C1] flex items-center justify-center transition-transform duration-300 ${
@@ -435,7 +431,7 @@ function RoleCard({ role, open, onToggle }) {
         <div className="px-6 pb-6 pt-2 border-t border-gray-100 grid md:grid-cols-2 gap-8">
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
-              What you will do
+              What the role owns
             </h4>
             <ul className="space-y-3">
               {role.responsibilities.map((item) => (
@@ -448,7 +444,7 @@ function RoleCard({ role, open, onToggle }) {
           </div>
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
-              What we are looking for
+              What we are assessing for
             </h4>
             <ul className="space-y-3">
               {role.requirements.map((item) => (
@@ -462,11 +458,11 @@ function RoleCard({ role, open, onToggle }) {
           <div className="md:col-span-2">
             <a
               href={`mailto:careers@workoraindia.com?subject=${encodeURIComponent(
-                `Application — ${role.title}`,
+                `Confidential interest — ${role.title}`,
               )}`}
               className="btn-primary group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#3557C1] to-blue-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#3557C1]/30"
             >
-              Apply for this role
+              Express interest confidentially
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
@@ -477,12 +473,15 @@ function RoleCard({ role, open, onToggle }) {
 }
 
 export default function Careers() {
-  const [team, setTeam] = useState('All roles')
+  const [category, setCategory] = useState('All mandates')
   const [openRole, setOpenRole] = useState(null)
 
   const visibleRoles = useMemo(
-    () => (team === 'All roles' ? ROLES : ROLES.filter((r) => r.team === team)),
-    [team],
+    () =>
+      category === 'All mandates'
+        ? ROLES
+        : ROLES.filter((r) => r.category === category),
+    [category],
   )
 
   return (
@@ -495,16 +494,16 @@ export default function Careers() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div className="space-y-7">
               <div className="animate-fadeInUp">
-                <Badge icon={Sparkles}>8 open roles · Mumbai & remote</Badge>
+                <Badge icon={Sparkles}>8 live mandates · Confidential search</Badge>
               </div>
 
               <h1
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] animate-fadeInUp"
                 style={{ animationDelay: '0.15s' }}
               >
-                We build careers for a living.
+                Executive & technology leadership.
                 <span className="block mt-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-200 bg-clip-text text-transparent">
-                  Start with your own.
+                  Placed with precision.
                 </span>
               </h1>
 
@@ -512,11 +511,10 @@ export default function Careers() {
                 className="text-base md:text-lg text-gray-300 leading-relaxed max-w-lg animate-fadeInUp"
                 style={{ animationDelay: '0.3s' }}
               >
-                Workora is a Mumbai recruitment firm of 68 people. We hire
-                consultants, sourcers, account managers and operators — and we
-                run our own hiring the way we tell clients to run theirs:
-                transparent bands, real feedback, and a decision inside two
-                weeks.
+                Workora runs confidential CXO and technology leadership
+                searches for growth-stage and enterprise businesses across
+                India. Every mandate below is live — client identities stay
+                under NDA until you choose to proceed.
               </p>
 
               <div
@@ -524,13 +522,13 @@ export default function Careers() {
                 style={{ animationDelay: '0.45s' }}
               >
                 <PrimaryButton href="#open-roles">
-                  See open roles
+                  See open mandates
                   <ArrowRight
                     size={18}
                     className="group-hover:translate-x-1 transition-transform"
                   />
                 </PrimaryButton>
-                <GhostButton href="#life">Life at Workora</GhostButton>
+                <GhostButton href="#approach">How our search works</GhostButton>
               </div>
             </div>
 
@@ -544,10 +542,10 @@ export default function Careers() {
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <div className="text-white font-semibold">
-                      Hiring board — this week
+                      Live mandates — this week
                     </div>
                     <div className="text-blue-100/60 text-sm">
-                      Internal talent acquisition
+                      CXO & technology search
                     </div>
                   </div>
                   <span className="px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
@@ -558,10 +556,10 @@ export default function Careers() {
 
                 <div className="space-y-3">
                   {[
-                    { role: 'Recruitment Consultant', stage: 'Craft round', count: 4, tone: 'bg-blue-500' },
-                    { role: 'Sourcing Specialist', stage: 'Intro call', count: 7, tone: 'bg-cyan-500' },
-                    { role: 'Account Manager', stage: 'Business round', count: 2, tone: 'bg-violet-500' },
-                    { role: 'Delivery Manager', stage: 'Offer stage', count: 1, tone: 'bg-emerald-500' },
+                    { role: 'Chief Technology Officer', stage: 'Final panel', count: 3, tone: 'bg-blue-500' },
+                    { role: 'VP Engineering', stage: 'Case study round', count: 5, tone: 'bg-cyan-500' },
+                    { role: 'Chief Financial Officer', stage: 'Reference checks', count: 2, tone: 'bg-violet-500' },
+                    { role: 'Chief HR Officer', stage: 'Client shortlist', count: 4, tone: 'bg-emerald-500' },
                   ].map((row) => (
                     <div
                       key={row.role}
@@ -584,26 +582,20 @@ export default function Careers() {
 
                 <div className="mt-6 pt-5 border-t border-white/10 grid grid-cols-2 gap-4">
                   <div>
-                    <div className="text-2xl font-bold text-white">11 days</div>
+                    <div className="text-2xl font-bold text-white">34 days</div>
                     <div className="text-blue-100/50 text-xs">
-                      Median application to offer
+                      Median time to first shortlist
                     </div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-white">100%</div>
                     <div className="text-blue-100/50 text-xs">
-                      Applicants who get a reply
+                      Mandates with a replacement guarantee
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/*
-                Detached fully clear of the card (offset > rotated footprint)
-                so it never lands over the header text — unlike the
-                production hero, this card is text-dense edge to edge with
-                no empty video backdrop for it to sit on.
-              */}
               <div className="absolute -top-20 -left-20 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl rotate-12 opacity-90 shadow-lg animate-float" />
             </div>
           </div>
@@ -629,31 +621,31 @@ export default function Careers() {
         </div>
       </section>
 
-      {/* ------------------------------------------------------------- Culture */}
-      <section id="life" className="bg-white py-20 md:py-28 scroll-mt-20">
+      {/* ------------------------------------------------------------- Approach */}
+      <section id="approach" className="bg-white py-20 md:py-28 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="How we work"
-            title="Six things that are true here"
-            subtitle="Not values on a wall — the operating rules people can hold each other to, including us."
+            eyebrow="Our approach"
+            title="How we run a CXO & technology search"
+            subtitle="Not a job board with extra steps — the operating rules behind every mandate, whether it is a boardroom search or a technical leadership hire."
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PILLARS.map((pillar) => (
+            {APPROACH.map((item) => (
               <div
-                key={pillar.title}
+                key={item.title}
                 className="card-hover group bg-white rounded-2xl p-7 border border-gray-200 hover:border-transparent hover:shadow-xl hover:shadow-black/5"
               >
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${pillar.gradient} flex items-center justify-center mb-6 shadow-lg`}
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center mb-6 shadow-lg`}
                 >
-                  <pillar.icon size={26} className="text-white" />
+                  <item.icon size={26} className="text-white" />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
-                  {pillar.title}
+                  {item.title}
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  {pillar.body}
+                  {item.body}
                 </p>
               </div>
             ))}
@@ -665,13 +657,13 @@ export default function Careers() {
       <section className="bg-gray-50 py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Benefits"
-            title="What you actually get"
-            subtitle="Specific numbers, because a benefits page without numbers is a benefits page that is hiding something."
+            eyebrow="For candidates"
+            title="What you get by going through us"
+            subtitle="Specific commitments, because a search process without them is just a longer interview."
           />
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {BENEFITS.map((benefit) => (
+            {CANDIDATE_BENEFITS.map((benefit) => (
               <div
                 key={benefit.title}
                 className="hover-lift bg-white rounded-2xl p-6 border border-gray-200"
@@ -695,34 +687,34 @@ export default function Careers() {
       <section id="open-roles" className="bg-white py-20 md:py-28 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Open roles"
-            title="Eight seats to fill"
-            subtitle="Every band below is the fixed CTC we will actually offer in that range. Incentives sit on top and are published separately."
+            eyebrow="Live mandates"
+            title="Eight mandates, two practices"
+            subtitle="Every band below is the compensation range we are mandated to close within. Client identities stay confidential until you choose to proceed."
           />
 
           <div className="flex flex-wrap gap-2 justify-center mb-10">
-            {TEAMS.map((option) => {
+            {CATEGORIES.map((option) => {
               const count =
-                option === 'All roles'
+                option === 'All mandates'
                   ? ROLES.length
-                  : ROLES.filter((r) => r.team === option).length
+                  : ROLES.filter((r) => r.category === option).length
               return (
                 <button
                   key={option}
                   type="button"
                   onClick={() => {
-                    setTeam(option)
+                    setCategory(option)
                     setOpenRole(null)
                   }}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
-                    team === option
+                    category === option
                       ? 'bg-[#3557C1] text-white border-[#3557C1] shadow-md shadow-[#3557C1]/25'
                       : 'bg-white text-gray-600 border-gray-200 hover:border-[#3557C1]/40 hover:text-[#3557C1]'
                   }`}
                 >
                   {option}
                   <span
-                    className={`ml-2 text-xs ${team === option ? 'text-white/70' : 'text-gray-400'}`}
+                    className={`ml-2 text-xs ${category === option ? 'text-white/70' : 'text-gray-400'}`}
                   >
                     {count}
                   </span>
@@ -745,14 +737,15 @@ export default function Careers() {
           </div>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Nothing matching?{' '}
+            Being approached for something that isn’t listed yet, or want to be
+            considered proactively?{' '}
             <a
-              href="mailto:careers@workoraindia.com?subject=Open%20application"
+              href="mailto:careers@workoraindia.com?subject=Confidential%20profile%20submission"
               className="text-[#3557C1] font-semibold hover:underline"
             >
-              Send us an open application
+              Share your profile confidentially
             </a>{' '}
-            — we read every one and keep it live for six months.
+            — we keep it on file for six months.
           </p>
         </div>
       </section>
@@ -769,9 +762,9 @@ export default function Careers() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             tone="dark"
-            eyebrow="Interview process"
-            title="Five stages, about two weeks"
-            subtitle="You will know the compensation band before the first call and the decision timeline before the last one."
+            eyebrow="Our process"
+            title="How a confidential search runs"
+            subtitle="You will know the compensation range and the honest read on the mandate before the first real interview, and the decision timeline before the last one."
           />
 
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-5">
@@ -805,9 +798,9 @@ export default function Careers() {
       <section className="bg-gray-50 py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            eyebrow="Team voices"
-            title="From people who work here"
-            subtitle="Four colleagues, unedited, on what changed for them after joining."
+            eyebrow="Candidate voices"
+            title="From people we placed"
+            subtitle="Four candidates, on what the search process was actually like — not on how the job turned out."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -833,7 +826,7 @@ export default function Careers() {
                     </div>
                     <div className="text-sm text-gray-500">{voice.role}</div>
                     <div className="text-xs text-[#3557C1] mt-0.5">
-                      {voice.tenure} at Workora
+                      {voice.tenure}
                     </div>
                   </div>
                 </div>
@@ -844,10 +837,10 @@ export default function Careers() {
       </section>
 
       <CTABand
-        title="Send us the version of your CV you would actually send a friend"
-        subtitle="No cover letter, no portal, no 40-field form. One email, and a human reply within two working days."
+        title="Share your profile for a confidential conversation"
+        subtitle="If you are being approached for a CXO or senior technology role — or want to be considered proactively — send your profile. Every conversation starts under NDA."
         primary={
-          <PrimaryButton href="mailto:careers@workoraindia.com?subject=Application">
+          <PrimaryButton href="mailto:careers@workoraindia.com?subject=Confidential%20profile%20submission">
             careers@workoraindia.com
             <ArrowRight
               size={18}
@@ -855,7 +848,7 @@ export default function Careers() {
             />
           </PrimaryButton>
         }
-        secondary={<GhostButton href="#open-roles">Back to open roles</GhostButton>}
+        secondary={<GhostButton href="#open-roles">Back to open mandates</GhostButton>}
       />
     </>
   )

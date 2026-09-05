@@ -33,7 +33,7 @@ function InstagramIcon(props) {
 }
 
 const EXPLORE = [
-  { name: 'Work at Workora', path: '/careers' },
+  { name: 'CXO & Tech Openings', path: '/careers' },
   { name: 'HR Operations', path: '/hr-operations' },
   { name: 'Loopy', path: '/loopy' },
 ]
