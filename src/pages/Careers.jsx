@@ -29,7 +29,7 @@ import {
 } from '../components/ui.jsx'
 
 const STATS = [
-  { value: '12', suffix: '', label: 'Live mandates across three practices' },
+  { value: '11', suffix: '', label: 'Live mandates across three practices' },
   { value: '6', suffix: '', label: 'Sectors currently hiring' },
   { value: '45', suffix: ' days', label: 'Median CXO search timeline' },
   { value: '100', suffix: '%', label: 'Mandates with a replacement guarantee' },
@@ -44,7 +44,7 @@ const PRACTICES = [
   {
     icon: Clock,
     title: 'Fractional CXO',
-    body: 'Part-time, retainer-based executive leadership — typically 2–3 days a week — for companies that need the expertise before they need, or can justify, a full-time hire.',
+    body: 'Part-time, retainer-based leadership across business, marketing and sales (CBO / CMO / CSO) — typically 2–3 days a week — for companies that need senior go-to-market leadership before they need, or can justify, a full-time hire.',
   },
   {
     icon: Compass,
@@ -225,55 +225,31 @@ const ROLES = [
     ],
   },
   {
-    title: 'Fractional CFO',
-    category: 'Fractional CXO',
-    location: 'Mumbai (hybrid)',
-    band: '₹3.5 – 5L / month retainer',
-    bandLabel: 'Monthly retainer',
-    commitment: '2 days/week · 6-month engagement',
-    seniority: '12+ years, incl. fractional or advisory CFO work',
-    client: 'Confidential — Seed-stage D2C brand, ~₹15 Cr revenue',
-    summary:
-      'Bring board-ready financial rigor and fundraise readiness to a founder-led team without the cost of a full-time CFO.',
-    responsibilities: [
-      'Build investor-ready financial models and MIS reporting from scratch',
-      'Advise the founder through an upcoming pre-Series A raise',
-      'Set up unit-economics tracking and a monthly board-reporting cadence',
-      'Tighten financial controls ahead of institutional due diligence',
-    ],
-    requirements: [
-      '12+ years in finance leadership, including fractional or advisory CFO work',
-      'Direct experience preparing an early-stage company for institutional fundraising',
-      'Comfortable working directly with a founder, not through a finance team',
-      'Available for 2 dedicated days a week for a minimum six-month engagement',
-    ],
-  },
-  {
-    title: 'Fractional CTO',
+    title: 'Fractional Chief Business Officer',
     category: 'Fractional CXO',
     location: 'Bengaluru (hybrid)',
     band: '₹4 – 6L / month retainer',
     bandLabel: 'Monthly retainer',
-    commitment: '3 days/week · 4-month engagement, extendable',
-    seniority: '10+ years, prior full-time CTO or VP Engineering experience',
-    client: 'Confidential — Non-technical founder, pre-seed SaaS',
+    commitment: '2 days/week · 6-month engagement',
+    seniority: '12+ years, prior COO, CBO or general-management role',
+    client: 'Confidential — Series A SaaS platform, ~₹12 Cr ARR',
     summary:
-      'Stand up the technical foundation and the first engineering hires for a non-technical founding team.',
+      'Own revenue planning, market entry and investor readiness for a Series A SaaS platform ahead of its next fundraise.',
     responsibilities: [
-      'Define the initial technical architecture and build-vs-buy decisions',
-      'Recruit and onboard the first 3–4 engineering hires',
-      'Own technical due-diligence conversations with prospective investors',
-      'Hand over to a full-time CTO hire once the team reaches a stable size',
+      'Build the revenue plan and go-to-market structure for the next stage of growth',
+      'Lead partnership and market-entry conversations the founder cannot get to alone',
+      'Prepare the data room, board reporting and investor narrative ahead of the raise',
+      'Align financial goals with execution across sales, marketing and product',
     ],
     requirements: [
-      '10+ years in engineering, with prior full-time CTO or VP Engineering experience',
-      'Comfortable being the first and only technical voice in the room',
-      'A track record of standing up engineering teams from zero',
-      'Available for 3 dedicated days a week for a minimum four-month engagement',
+      '12+ years in a business or general-management leadership role — COO, CBO, or GM',
+      'Direct experience preparing a company for institutional fundraising',
+      'Comfortable operationalizing strategy without a large team under you',
+      'Available for 2 dedicated days a week for a minimum six-month engagement',
     ],
   },
   {
-    title: 'Fractional CMO',
+    title: 'Fractional Chief Marketing Officer',
     category: 'Fractional CXO',
     location: 'Mumbai (hybrid)',
     band: '₹3 – 4.5L / month retainer',
@@ -282,42 +258,42 @@ const ROLES = [
     seniority: '12+ years, D2C or consumer-brand marketing leadership',
     client: 'Confidential — Growth-stage D2C brand, ~₹40 Cr revenue',
     summary:
-      'Own brand and performance-marketing strategy for a D2C brand scaling past its founder-led growth phase.',
+      'Lead demand generation and campaign strategy for a D2C brand scaling past its founder-led growth phase — marketing that converts, not just builds awareness.',
     responsibilities: [
-      'Set brand and performance-marketing strategy across paid, retention and offline channels',
+      'Own demand-generation and campaign strategy across paid, retention and offline channels',
+      'Sharpen brand positioning and the marketing systems behind it',
       'Build a marketing team structure and hire the first in-house marketing leads',
-      'Own the marketing budget and CAC/LTV discipline as spend scales',
-      'Report directly to the founder on a monthly cadence',
+      'Own CAC/LTV discipline and report directly to the founder on a monthly cadence',
     ],
     requirements: [
       '12+ years in marketing leadership, D2C or consumer-brand background required',
+      'A track record of marketing that converts, not just campaigns that get attention',
       'Experience scaling a brand past ₹25–50 Cr in revenue',
-      'Comfortable operating without a large existing marketing team',
       'Available for 2 dedicated days a week on an ongoing basis',
     ],
   },
   {
-    title: 'Fractional CHRO',
+    title: 'Fractional Chief Sales Officer',
     category: 'Fractional CXO',
     location: 'Gurugram (hybrid)',
     band: '₹3.5 – 5L / month retainer',
     bandLabel: 'Monthly retainer',
-    commitment: '2 days/week · 6-month engagement',
-    seniority: '13+ years, startup or scale-up HR leadership',
-    client: 'Confidential — Series B logistics-tech company, ~400 employees',
+    commitment: '3 days/week · 6-month engagement',
+    seniority: '12+ years, B2B or SaaS sales-led growth leadership',
+    client: 'Confidential — Series B B2B SaaS company, ~450 employees',
     summary:
-      'Build HR infrastructure and leadership-hiring capability for a 400-person company that has outgrown founder-led HR.',
+      'Build and manage high-performance sales operations for a Series B SaaS company scaling past its founder-led sales motion.',
     responsibilities: [
-      'Design a performance and compensation framework as headcount scales past 400',
-      'Build leadership-hiring capability so founders stop closing every senior role themselves',
-      'Set up HR policy, POSH compliance and a first HRIS rollout',
-      'Advise the founding team on org design ahead of a Series C raise',
+      'Define and instrument the sales process end to end, from first touch to close',
+      'Sharpen CRM usage and pipeline hygiene across the sales team',
+      'Build a repeatable sales playbook and a clear quota and accountability structure',
+      'Recruit and ramp the first sales-leadership layer beneath you',
     ],
     requirements: [
-      '13+ years in HR leadership, with startup or scale-up experience',
-      'Direct experience building HR functions from a founder-led starting point',
-      'Comfortable operating without a large existing HR team',
-      'Available for 2 dedicated days a week for a minimum six-month engagement',
+      '12+ years in sales leadership, B2B or SaaS sales-led growth background required',
+      'A track record of building a sales playbook and process from scratch',
+      'Comfortable operating without a large existing sales organisation',
+      'Available for 3 dedicated days a week for a minimum six-month engagement',
     ],
   },
   {
@@ -479,10 +455,10 @@ const VOICES = [
   },
   {
     quote:
-      'I was skeptical fractional could work for a CFO mandate, but the structure Workora put around it — a fixed two-day cadence, clear deliverables — made it feel like a real engagement, not a favour for a friend of a friend.',
+      'I was skeptical fractional could work for a marketing leadership role, but the structure Workora put around it — a fixed two-day cadence, clear deliverables — made it feel like a real mandate, not a favour for a friend of a friend.',
     name: 'Deepak Nair',
-    role: 'Placed as Fractional CFO, seed-stage D2C brand',
-    tenure: '5 months into a 6-month engagement',
+    role: 'Placed as Fractional CMO, growth-stage D2C brand',
+    tenure: '8 months into an ongoing engagement',
   },
 ]
 
@@ -621,7 +597,7 @@ export default function Careers() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div className="space-y-7">
               <div className="animate-fadeInUp">
-                <Badge icon={Sparkles}>12 live mandates · Confidential search</Badge>
+                <Badge icon={Sparkles}>11 live mandates · Confidential search</Badge>
               </div>
 
               <h1
@@ -685,7 +661,7 @@ export default function Careers() {
                   {[
                     { role: 'Chief Technology Officer', stage: 'Final panel', count: 3, tone: 'bg-blue-500' },
                     { role: 'VP Engineering', stage: 'Case study round', count: 5, tone: 'bg-cyan-500' },
-                    { role: 'Fractional CFO', stage: 'Client shortlist', count: 3, tone: 'bg-amber-500' },
+                    { role: 'Fractional CMO', stage: 'Client shortlist', count: 3, tone: 'bg-amber-500' },
                     { role: 'Chief Financial Officer', stage: 'Reference checks', count: 2, tone: 'bg-violet-500' },
                   ].map((row) => (
                     <div
@@ -815,7 +791,7 @@ export default function Careers() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Live mandates"
-            title="Twelve mandates, three practices"
+            title="Eleven mandates, three practices"
             subtitle="Every band below is either the fixed compensation range or the monthly retainer we are mandated to close within. Client identities stay confidential until you choose to proceed."
           />
 
