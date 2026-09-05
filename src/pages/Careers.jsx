@@ -29,18 +29,13 @@ import {
 } from '../components/ui.jsx'
 
 const STATS = [
-  { value: '11', suffix: '', label: 'Live mandates across three practices' },
+  { value: '7', suffix: '', label: 'Live mandates across two practices' },
   { value: '6', suffix: '', label: 'Sectors currently hiring' },
-  { value: '45', suffix: ' days', label: 'Median CXO search timeline' },
+  { value: '45', suffix: ' days', label: 'Median search timeline' },
   { value: '100', suffix: '%', label: 'Mandates with a replacement guarantee' },
 ]
 
 const PRACTICES = [
-  {
-    icon: Briefcase,
-    title: 'Full-time CXO',
-    body: 'Permanent C-suite hires — CFO, CTO, CHRO, COO — for companies ready to make a long-term leadership bet.',
-  },
   {
     icon: Clock,
     title: 'Fractional CXO',
@@ -136,94 +131,6 @@ const CANDIDATE_BENEFITS = [
 ]
 
 const ROLES = [
-  {
-    title: 'Chief Financial Officer',
-    category: 'CXO',
-    location: 'Mumbai',
-    band: '₹1.2 – 1.8 Cr + ESOPs',
-    seniority: '15+ years, at least 5 as CFO or deputy CFO',
-    client: 'Confidential — Series C fintech, ~₹250 Cr ARR',
-    summary:
-      'Own the finance function for a fast-scaling lending fintech through its next fundraise and toward a public-market-ready structure.',
-    responsibilities: [
-      'Own fundraising strategy and investor relations through the Series D round',
-      'Build out FP&A, treasury and financial-controls functions as the company scales past ₹250 Cr ARR',
-      'Partner with the board on unit economics, burn discipline and the path to profitability',
-      'Lead statutory, tax and regulatory compliance across every state the company lends in',
-    ],
-    requirements: [
-      '15+ years in finance leadership, with at least 5 as CFO or deputy CFO',
-      'Direct experience raising institutional capital at Series C or later',
-      'NBFC or lending-fintech background strongly preferred',
-      'Comfortable presenting to a board with institutional investors on it',
-    ],
-  },
-  {
-    title: 'Chief Technology Officer',
-    category: 'CXO',
-    location: 'Bengaluru',
-    band: '₹1.5 – 2.2 Cr + ESOPs',
-    seniority: '14+ years, 5+ leading an org of 80 or more',
-    client: 'Confidential — D2C consumer-tech platform, Series D',
-    summary:
-      'Rebuild the technology roadmap and engineering culture as the company moves from a single monolith to a multi-team platform.',
-    responsibilities: [
-      'Rebuild the engineering roadmap around a multi-team platform, moving off the current monolith',
-      'Grow and structure an 80-person engineering org across four pods',
-      'Own technology partnerships, build-vs-buy calls and the infrastructure cost curve',
-      'Sit on the leadership team and translate technology bets into business outcomes',
-    ],
-    requirements: [
-      '14+ years in engineering, with 5+ years leading orgs of 80 or more',
-      'Direct experience taking a platform from monolith to services',
-      'D2C or high-traffic consumer platform experience preferred',
-      'A track record of hiring and retaining engineering leaders, not just engineers',
-    ],
-  },
-  {
-    title: 'Chief Human Resources Officer',
-    category: 'CXO',
-    location: 'Mumbai',
-    band: '₹90L – 1.4 Cr',
-    seniority: '16+ years, NBFC or BFSI experience preferred',
-    client: 'Confidential — NBFC, 3,000+ employees across 60 branches',
-    summary:
-      'Lead HR strategy through a branch-network expansion and a shift to a performance-linked compensation model.',
-    responsibilities: [
-      'Design a performance-linked compensation model ahead of a branch-network expansion',
-      'Own HR policy, statutory compliance and employee relations across 60+ branches',
-      'Build leadership pipelines for branch-manager and regional roles',
-      'Partner with the CEO on culture and retention as headcount crosses 3,000',
-    ],
-    requirements: [
-      '16+ years in HR leadership, NBFC or BFSI experience strongly preferred',
-      'Experience running HR across a multi-location branch network',
-      'Direct exposure to performance-linked and variable compensation design',
-      'Comfortable operating as a business partner to regional leadership, not just a policy owner',
-    ],
-  },
-  {
-    title: 'Chief Operating Officer',
-    category: 'CXO',
-    location: 'Pune',
-    band: '₹1.1 – 1.6 Cr',
-    seniority: '15+ years, multi-plant manufacturing operations',
-    client: 'Confidential — Auto-components manufacturing group, 4 plants',
-    summary:
-      'Own end-to-end operations across four plants as the group prepares for a capacity expansion and a new export line.',
-    responsibilities: [
-      'Own end-to-end operations across four manufacturing plants',
-      'Lead a capacity expansion and the launch of a new export line',
-      'Drive operational efficiency, quality systems and vendor governance',
-      'Report directly to the group CEO and sit on the executive committee',
-    ],
-    requirements: [
-      '15+ years in operations leadership, multi-plant manufacturing background',
-      'Direct experience with capacity expansion or greenfield plant setup',
-      'Exposure to export compliance and international quality certifications',
-      'A demonstrated record of improving plant-level efficiency metrics',
-    ],
-  },
   {
     title: 'Fractional Chief Business Officer',
     category: 'Fractional CXO',
@@ -427,31 +334,10 @@ const PROCESS = [
 const VOICES = [
   {
     quote:
-      'The process was the most rigorous I’ve been through — and the most respectful of my confidentiality. My employer at the time never found out I was in conversation until the day I resigned.',
-    name: 'Rajiv Malhotra',
-    role: 'Placed as Chief Financial Officer, fintech',
-    tenure: '14 months into the role',
-  },
-  {
-    quote:
       'I got the honest read on compensation and scope in the very first call, not after three rounds of interviews. That alone saved me weeks I would otherwise have wasted.',
     name: 'Ananya Reddy',
     role: 'Placed as VP Engineering, enterprise SaaS',
     tenure: '9 months into the role',
-  },
-  {
-    quote:
-      'I spoke to the same consultant from the first call to the signed offer. No hand-offs, no re-explaining my situation to someone new every stage.',
-    name: 'Karthik Subramaniam',
-    role: 'Placed as Chief Technology Officer, D2C platform',
-    tenure: '19 months into the role',
-  },
-  {
-    quote:
-      'Eighteen months after I joined, the same consultant called to check in — not to sell me on anything, just to ask how it was going. That is not the norm in this industry.',
-    name: 'Meenal Deshpande',
-    role: 'Placed as Chief Human Resources Officer, NBFC',
-    tenure: '22 months into the role',
   },
   {
     quote:
@@ -460,9 +346,23 @@ const VOICES = [
     role: 'Placed as Fractional CMO, growth-stage D2C brand',
     tenure: '8 months into an ongoing engagement',
   },
+  {
+    quote:
+      'I had done full-time CRO roles before. What surprised me going fractional through Workora was how seriously the client treated the engagement — a proper seat at the leadership table, not a vendor login.',
+    name: 'Vikram Chandran',
+    role: 'Placed as Fractional CSO, B2B SaaS company',
+    tenure: '4 months into a 6-month engagement',
+  },
+  {
+    quote:
+      'The technical round was run by the actual hiring lead, not a generalist recruiter reading off a script. Ten minutes in, I could tell they understood the difference between a data scientist and someone who ships models into production.',
+    name: 'Priya Ramanathan',
+    role: 'Placed as Director of Data & AI, digital lending platform',
+    tenure: '11 months into the role',
+  },
 ]
 
-const CATEGORIES = ['All mandates', 'CXO', 'Fractional CXO', 'Technology']
+const CATEGORIES = ['All mandates', 'Fractional CXO', 'Technology']
 
 function RoleCard({ role, open, onToggle }) {
   return (
@@ -597,14 +497,14 @@ export default function Careers() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div className="space-y-7">
               <div className="animate-fadeInUp">
-                <Badge icon={Sparkles}>11 live mandates · Confidential search</Badge>
+                <Badge icon={Sparkles}>7 live mandates · Confidential search</Badge>
               </div>
 
               <h1
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] animate-fadeInUp"
                 style={{ animationDelay: '0.15s' }}
               >
-                Executive & technology leadership.
+                Fractional & technology leadership.
                 <span className="block mt-3 bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-200 bg-clip-text text-transparent">
                   Placed with precision.
                 </span>
@@ -614,7 +514,7 @@ export default function Careers() {
                 className="text-base md:text-lg text-gray-300 leading-relaxed max-w-lg animate-fadeInUp"
                 style={{ animationDelay: '0.3s' }}
               >
-                Workora runs confidential CXO, fractional CXO and technology
+                Workora runs confidential fractional CXO and technology
                 leadership searches for growth-stage and enterprise businesses
                 across India. Every mandate below is live — client identities
                 stay under NDA until you choose to proceed.
@@ -648,7 +548,7 @@ export default function Careers() {
                       Live mandates — this week
                     </div>
                     <div className="text-blue-100/60 text-sm">
-                      CXO & technology search
+                      Fractional CXO & technology search
                     </div>
                   </div>
                   <span className="px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
@@ -659,10 +559,10 @@ export default function Careers() {
 
                 <div className="space-y-3">
                   {[
-                    { role: 'Chief Technology Officer', stage: 'Final panel', count: 3, tone: 'bg-blue-500' },
+                    { role: 'Director of Data & AI', stage: 'Final panel', count: 3, tone: 'bg-blue-500' },
                     { role: 'VP Engineering', stage: 'Case study round', count: 5, tone: 'bg-cyan-500' },
                     { role: 'Fractional CMO', stage: 'Client shortlist', count: 3, tone: 'bg-amber-500' },
-                    { role: 'Chief Financial Officer', stage: 'Reference checks', count: 2, tone: 'bg-violet-500' },
+                    { role: 'Fractional CBO', stage: 'Reference checks', count: 2, tone: 'bg-violet-500' },
                   ].map((row) => (
                     <div
                       key={row.role}
@@ -791,7 +691,7 @@ export default function Careers() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Live mandates"
-            title="Eleven mandates, three practices"
+            title="Seven mandates, two practices"
             subtitle="Every band below is either the fixed compensation range or the monthly retainer we are mandated to close within. Client identities stay confidential until you choose to proceed."
           />
 
@@ -922,7 +822,7 @@ export default function Careers() {
           <SectionHeading
             eyebrow="Candidate voices"
             title="From people we placed"
-            subtitle="Five candidates — full-time and fractional — on what the search process was actually like, not on how the job turned out."
+            subtitle="Four candidates — fractional and technology — on what the search process was actually like, not on how the job turned out."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -960,7 +860,7 @@ export default function Careers() {
 
       <CTABand
         title="Share your profile for a confidential conversation"
-        subtitle="If you are being approached for a CXO, fractional CXO or senior technology role — or want to be considered proactively — send your profile. Every conversation starts under NDA."
+        subtitle="If you are being approached for a fractional CXO or senior technology role — or want to be considered proactively — send your profile. Every conversation starts under NDA."
         primary={
           <PrimaryButton href="mailto:careers@workoraindia.com?subject=Confidential%20profile%20submission">
             careers@workoraindia.com
