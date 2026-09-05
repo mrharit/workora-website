@@ -29,10 +29,28 @@ import {
 } from '../components/ui.jsx'
 
 const STATS = [
-  { value: '8', suffix: '', label: 'Live CXO & technology mandates' },
+  { value: '12', suffix: '', label: 'Live mandates across three practices' },
   { value: '6', suffix: '', label: 'Sectors currently hiring' },
-  { value: '45', suffix: ' days', label: 'Median search timeline' },
+  { value: '45', suffix: ' days', label: 'Median CXO search timeline' },
   { value: '100', suffix: '%', label: 'Mandates with a replacement guarantee' },
+]
+
+const PRACTICES = [
+  {
+    icon: Briefcase,
+    title: 'Full-time CXO',
+    body: 'Permanent C-suite hires — CFO, CTO, CHRO, COO — for companies ready to make a long-term leadership bet.',
+  },
+  {
+    icon: Clock,
+    title: 'Fractional CXO',
+    body: 'Part-time, retainer-based executive leadership — typically 2–3 days a week — for companies that need the expertise before they need, or can justify, a full-time hire.',
+  },
+  {
+    icon: Compass,
+    title: 'Technology',
+    body: 'Full-time engineering and technology leadership — VP Engineering, data, product and security leadership roles.',
+  },
 ]
 
 const APPROACH = [
@@ -83,7 +101,7 @@ const CANDIDATE_BENEFITS = [
   {
     icon: IndianRupee,
     title: 'Compensation benchmarking',
-    body: 'We benchmark your ask against real market data before you sit across the table, so you negotiate from fact, not a guess.',
+    body: 'We benchmark your ask — fixed compensation or a fractional retainer — against real market data before you sit across the table, so you negotiate from fact, not a guess.',
   },
   {
     icon: Users,
@@ -204,6 +222,102 @@ const ROLES = [
       'Direct experience with capacity expansion or greenfield plant setup',
       'Exposure to export compliance and international quality certifications',
       'A demonstrated record of improving plant-level efficiency metrics',
+    ],
+  },
+  {
+    title: 'Fractional CFO',
+    category: 'Fractional CXO',
+    location: 'Mumbai (hybrid)',
+    band: '₹3.5 – 5L / month retainer',
+    bandLabel: 'Monthly retainer',
+    commitment: '2 days/week · 6-month engagement',
+    seniority: '12+ years, incl. fractional or advisory CFO work',
+    client: 'Confidential — Seed-stage D2C brand, ~₹15 Cr revenue',
+    summary:
+      'Bring board-ready financial rigor and fundraise readiness to a founder-led team without the cost of a full-time CFO.',
+    responsibilities: [
+      'Build investor-ready financial models and MIS reporting from scratch',
+      'Advise the founder through an upcoming pre-Series A raise',
+      'Set up unit-economics tracking and a monthly board-reporting cadence',
+      'Tighten financial controls ahead of institutional due diligence',
+    ],
+    requirements: [
+      '12+ years in finance leadership, including fractional or advisory CFO work',
+      'Direct experience preparing an early-stage company for institutional fundraising',
+      'Comfortable working directly with a founder, not through a finance team',
+      'Available for 2 dedicated days a week for a minimum six-month engagement',
+    ],
+  },
+  {
+    title: 'Fractional CTO',
+    category: 'Fractional CXO',
+    location: 'Bengaluru (hybrid)',
+    band: '₹4 – 6L / month retainer',
+    bandLabel: 'Monthly retainer',
+    commitment: '3 days/week · 4-month engagement, extendable',
+    seniority: '10+ years, prior full-time CTO or VP Engineering experience',
+    client: 'Confidential — Non-technical founder, pre-seed SaaS',
+    summary:
+      'Stand up the technical foundation and the first engineering hires for a non-technical founding team.',
+    responsibilities: [
+      'Define the initial technical architecture and build-vs-buy decisions',
+      'Recruit and onboard the first 3–4 engineering hires',
+      'Own technical due-diligence conversations with prospective investors',
+      'Hand over to a full-time CTO hire once the team reaches a stable size',
+    ],
+    requirements: [
+      '10+ years in engineering, with prior full-time CTO or VP Engineering experience',
+      'Comfortable being the first and only technical voice in the room',
+      'A track record of standing up engineering teams from zero',
+      'Available for 3 dedicated days a week for a minimum four-month engagement',
+    ],
+  },
+  {
+    title: 'Fractional CMO',
+    category: 'Fractional CXO',
+    location: 'Mumbai (hybrid)',
+    band: '₹3 – 4.5L / month retainer',
+    bandLabel: 'Monthly retainer',
+    commitment: '2 days/week · ongoing',
+    seniority: '12+ years, D2C or consumer-brand marketing leadership',
+    client: 'Confidential — Growth-stage D2C brand, ~₹40 Cr revenue',
+    summary:
+      'Own brand and performance-marketing strategy for a D2C brand scaling past its founder-led growth phase.',
+    responsibilities: [
+      'Set brand and performance-marketing strategy across paid, retention and offline channels',
+      'Build a marketing team structure and hire the first in-house marketing leads',
+      'Own the marketing budget and CAC/LTV discipline as spend scales',
+      'Report directly to the founder on a monthly cadence',
+    ],
+    requirements: [
+      '12+ years in marketing leadership, D2C or consumer-brand background required',
+      'Experience scaling a brand past ₹25–50 Cr in revenue',
+      'Comfortable operating without a large existing marketing team',
+      'Available for 2 dedicated days a week on an ongoing basis',
+    ],
+  },
+  {
+    title: 'Fractional CHRO',
+    category: 'Fractional CXO',
+    location: 'Gurugram (hybrid)',
+    band: '₹3.5 – 5L / month retainer',
+    bandLabel: 'Monthly retainer',
+    commitment: '2 days/week · 6-month engagement',
+    seniority: '13+ years, startup or scale-up HR leadership',
+    client: 'Confidential — Series B logistics-tech company, ~400 employees',
+    summary:
+      'Build HR infrastructure and leadership-hiring capability for a 400-person company that has outgrown founder-led HR.',
+    responsibilities: [
+      'Design a performance and compensation framework as headcount scales past 400',
+      'Build leadership-hiring capability so founders stop closing every senior role themselves',
+      'Set up HR policy, POSH compliance and a first HRIS rollout',
+      'Advise the founding team on org design ahead of a Series C raise',
+    ],
+    requirements: [
+      '13+ years in HR leadership, with startup or scale-up experience',
+      'Direct experience building HR functions from a founder-led starting point',
+      'Comfortable operating without a large existing HR team',
+      'Available for 2 dedicated days a week for a minimum six-month engagement',
     ],
   },
   {
@@ -329,7 +443,7 @@ const PROCESS = [
     step: '05',
     title: 'Offer, references & onboarding',
     duration: '1 – 2 weeks',
-    body: 'Reference checks run in parallel with offer negotiation. We stay involved through your first 90 days on the job.',
+    body: 'Reference checks run in parallel with offer or retainer negotiation. We stay involved through your first 90 days — or the first month of a fractional engagement.',
     icon: BadgeCheck,
   },
 ]
@@ -363,9 +477,16 @@ const VOICES = [
     role: 'Placed as Chief Human Resources Officer, NBFC',
     tenure: '22 months into the role',
   },
+  {
+    quote:
+      'I was skeptical fractional could work for a CFO mandate, but the structure Workora put around it — a fixed two-day cadence, clear deliverables — made it feel like a real engagement, not a favour for a friend of a friend.',
+    name: 'Deepak Nair',
+    role: 'Placed as Fractional CFO, seed-stage D2C brand',
+    tenure: '5 months into a 6-month engagement',
+  },
 ]
 
-const CATEGORIES = ['All mandates', 'CXO', 'Technology']
+const CATEGORIES = ['All mandates', 'CXO', 'Fractional CXO', 'Technology']
 
 function RoleCard({ role, open, onToggle }) {
   return (
@@ -405,13 +526,19 @@ function RoleCard({ role, open, onToggle }) {
               <Lock size={14} className="text-[#3557C1]" />
               {role.client}
             </span>
+            {role.commitment && (
+              <span className="flex items-center gap-1.5">
+                <Clock size={14} className="text-[#3557C1]" />
+                {role.commitment}
+              </span>
+            )}
           </div>
         </div>
 
         <div className="flex items-center gap-4 shrink-0">
           <div className="text-right">
             <div className="text-base font-bold text-gray-900">{role.band}</div>
-            <div className="text-xs text-gray-500">Compensation range</div>
+            <div className="text-xs text-gray-500">{role.bandLabel ?? 'Compensation range'}</div>
           </div>
           <span
             className={`w-9 h-9 rounded-full bg-[#3557C1]/10 text-[#3557C1] flex items-center justify-center transition-transform duration-300 ${
@@ -494,7 +621,7 @@ export default function Careers() {
           <div className="grid lg:grid-cols-2 gap-14 items-center">
             <div className="space-y-7">
               <div className="animate-fadeInUp">
-                <Badge icon={Sparkles}>8 live mandates · Confidential search</Badge>
+                <Badge icon={Sparkles}>12 live mandates · Confidential search</Badge>
               </div>
 
               <h1
@@ -511,10 +638,10 @@ export default function Careers() {
                 className="text-base md:text-lg text-gray-300 leading-relaxed max-w-lg animate-fadeInUp"
                 style={{ animationDelay: '0.3s' }}
               >
-                Workora runs confidential CXO and technology leadership
-                searches for growth-stage and enterprise businesses across
-                India. Every mandate below is live — client identities stay
-                under NDA until you choose to proceed.
+                Workora runs confidential CXO, fractional CXO and technology
+                leadership searches for growth-stage and enterprise businesses
+                across India. Every mandate below is live — client identities
+                stay under NDA until you choose to proceed.
               </p>
 
               <div
@@ -558,8 +685,8 @@ export default function Careers() {
                   {[
                     { role: 'Chief Technology Officer', stage: 'Final panel', count: 3, tone: 'bg-blue-500' },
                     { role: 'VP Engineering', stage: 'Case study round', count: 5, tone: 'bg-cyan-500' },
+                    { role: 'Fractional CFO', stage: 'Client shortlist', count: 3, tone: 'bg-amber-500' },
                     { role: 'Chief Financial Officer', stage: 'Reference checks', count: 2, tone: 'bg-violet-500' },
-                    { role: 'Chief HR Officer', stage: 'Client shortlist', count: 4, tone: 'bg-emerald-500' },
                   ].map((row) => (
                     <div
                       key={row.role}
@@ -688,9 +815,28 @@ export default function Careers() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Live mandates"
-            title="Eight mandates, two practices"
-            subtitle="Every band below is the compensation range we are mandated to close within. Client identities stay confidential until you choose to proceed."
+            title="Twelve mandates, three practices"
+            subtitle="Every band below is either the fixed compensation range or the monthly retainer we are mandated to close within. Client identities stay confidential until you choose to proceed."
           />
+
+          <div className="grid sm:grid-cols-3 gap-4 mb-10">
+            {PRACTICES.map((practice) => (
+              <div
+                key={practice.title}
+                className="rounded-2xl border border-gray-200 bg-gray-50 p-5"
+              >
+                <div className="flex items-center gap-2.5 mb-2">
+                  <practice.icon size={18} className="text-[#3557C1]" />
+                  <h4 className="font-bold text-gray-900 text-sm">
+                    {practice.title}
+                  </h4>
+                </div>
+                <p className="text-xs text-gray-600 leading-relaxed">
+                  {practice.body}
+                </p>
+              </div>
+            ))}
+          </div>
 
           <div className="flex flex-wrap gap-2 justify-center mb-10">
             {CATEGORIES.map((option) => {
@@ -800,7 +946,7 @@ export default function Careers() {
           <SectionHeading
             eyebrow="Candidate voices"
             title="From people we placed"
-            subtitle="Four candidates, on what the search process was actually like — not on how the job turned out."
+            subtitle="Five candidates — full-time and fractional — on what the search process was actually like, not on how the job turned out."
           />
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -838,7 +984,7 @@ export default function Careers() {
 
       <CTABand
         title="Share your profile for a confidential conversation"
-        subtitle="If you are being approached for a CXO or senior technology role — or want to be considered proactively — send your profile. Every conversation starts under NDA."
+        subtitle="If you are being approached for a CXO, fractional CXO or senior technology role — or want to be considered proactively — send your profile. Every conversation starts under NDA."
         primary={
           <PrimaryButton href="mailto:careers@workoraindia.com?subject=Confidential%20profile%20submission">
             careers@workoraindia.com
