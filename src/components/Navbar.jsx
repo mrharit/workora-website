@@ -1,13 +1,67 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { ArrowRight, Menu, Send, X } from 'lucide-react'
 import logo from '../assets/workora-logo.png'
+import {
+  TELEGRAM_BOT_LINK,
+  TELEGRAM_SECTION_PATH,
+} from '../config.js'
 
+/*
+ * The last two entries are the CV database-revival demo: the CV to Rows tool,
+ * and the Telegram bot that confirms each candidate's details. The bot opens
+ * t.me directly once its username is configured (see config.js); until then it
+ * scrolls to the explainer on the CV to Rows page.
+ */
 const NAV_ITEMS = [
   { name: 'Careers', path: '/careers' },
   { name: 'HR Operations', path: '/hr-operations' },
   { name: 'Loopy', path: '/loopy' },
+  { name: 'CV to Rows', path: '/cv-to-rows', badge: 'New' },
+  {
+    name: 'Telegram Bot',
+    path: TELEGRAM_BOT_LINK || TELEGRAM_SECTION_PATH,
+    external: Boolean(TELEGRAM_BOT_LINK),
+    icon: Send,
+  },
 ]
+
+/** Router link for on-site pages, plain anchor for the external Telegram link. */
+function NavEntry({ item, className, onClick, children }) {
+  if (item.external) {
+    return (
+      <a
+        href={item.path}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link to={item.path} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  )
+}
+
+function NavLabel({ item }) {
+  const Icon = item.icon
+  return (
+    <>
+      {Icon && <Icon size={15} className="inline -mt-0.5 mr-1.5" />}
+      {item.name}
+      {item.badge && (
+        <span className="ml-2 inline-flex items-center rounded-full bg-emerald-400 px-1.5 py-0.5 align-middle text-[9px] font-bold uppercase leading-none tracking-wide text-[#0a1628]">
+          {item.badge}
+        </span>
+      )}
+    </>
+  )
+}
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -54,10 +108,10 @@ export default function Navbar() {
 
           <nav className="hidden lg:flex items-center space-x-1">
             {NAV_ITEMS.map((item) => (
-              <Link
+              <NavEntry
                 key={item.name}
-                to={item.path}
-                className={`relative px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                item={item}
+                className={`relative px-3 xl:px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all duration-300 ${
                   isActive(item.path)
                     ? scrolled
                       ? 'text-[#3557C1] bg-[#3557C1]/10'
@@ -67,11 +121,11 @@ export default function Navbar() {
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                 }`}
               >
-                {item.name}
+                <NavLabel item={item} />
                 {isActive(item.path) && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-current" />
                 )}
-              </Link>
+              </NavEntry>
             ))}
           </nav>
 
@@ -115,9 +169,9 @@ export default function Navbar() {
             }`}
           >
             {NAV_ITEMS.map((item) => (
-              <Link
+              <NavEntry
                 key={item.name}
-                to={item.path}
+                item={item}
                 onClick={() => setMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl font-medium transition-all ${
                   isActive(item.path)
@@ -127,8 +181,8 @@ export default function Navbar() {
                       : 'text-white hover:bg-white/10'
                 }`}
               >
-                {item.name}
-              </Link>
+                <NavLabel item={item} />
+              </NavEntry>
             ))}
             <a
               href="mailto:info@workoraindia.com"

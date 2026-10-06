@@ -1,0 +1,1089 @@
+<!doctype html><html lang="en" data-theme="light"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>CV to Rows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one working column. A drop zone on top, then the extracted table, which is the product. */
+:root {
+  --bg: #F4F7F7;
+  --surface: #FFFFFF;
+  --ink: #13211F;
+  --ink-2: #4B5C59;
+  --line: #D8E1DF;
+  --accent: #0D6A62;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #DDF0ED;
+  --ok: #17724A;
+  --ok-soft: #E1F2E9;
+  --warn: #8F5B00;
+  --warn-soft: #FAEFD6;
+  --bad: #A8271F;
+  --bad-soft: #FBE5E2;
+  --mute-soft: #E9EEED;
+  --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1514; --surface: #142120; --ink: #E4EEEC; --ink-2: #9BAFAB; --line: #263836;
+    --accent: #4CC2B2; --accent-ink: #062B27; --accent-soft: #14312E;
+    --ok: #5CD08F; --ok-soft: #153123; --warn: #E3B04F; --warn-soft: #33290F;
+    --bad: #FF8F86; --bad-soft: #3B1A18; --mute-soft: #1D2D2B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1514; --surface: #142120; --ink: #E4EEEC; --ink-2: #9BAFAB; --line: #263836;
+  --accent: #4CC2B2; --accent-ink: #062B27; --accent-soft: #14312E;
+  --ok: #5CD08F; --ok-soft: #153123; --warn: #E3B04F; --warn-soft: #33290F;
+  --bad: #FF8F86; --bad-soft: #3B1A18; --mute-soft: #1D2D2B;
+  color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 28px 56px; }
+.wrap { max-width: 1240px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; }
+.wrap > * { min-width: 0; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4vw, 34px); line-height: 1.1; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px; }
+.top p { margin: 0; }
+.sub { color: var(--ink-2); font-size: 15px; margin-top: 6px; }
+.privacy { color: var(--ink-2); font-size: 12.5px; max-width: 34ch; }
+
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 8px 14px; border-radius: 8px; font-weight: 500; font-size: 13.5px; line-height: 1.2; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+.drop { border: 1.5px dashed var(--line); background: var(--surface); border-radius: 12px; padding: 22px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; transition: background .15s, border-color .15s; }
+.drop.over { background: var(--accent-soft); border-color: var(--accent); }
+.drop .lead { flex: 1 1 260px; min-width: 0; }
+.drop .lead strong { display: block; font-size: 16px; font-weight: 600; }
+.drop .lead span { color: var(--ink-2); font-size: 13px; }
+.drop .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.progress { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.progress .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.progress .meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.bar { height: 6px; border-radius: 3px; background: var(--mute-soft); overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .15s; }
+
+.banner { background: var(--warn-soft); color: var(--warn); border-radius: 8px; padding: 9px 14px; font-size: 13px; font-weight: 500; }
+.banner.err { background: var(--bad-soft); color: var(--bad); }
+
+.bar-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px; font-size: 13px; display: inline-flex; gap: 7px; align-items: baseline; }
+.chip b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.chip:hover { border-color: var(--accent); }
+.spacer { flex: 1 1 20px; }
+.search { flex: 1 1 200px; max-width: 320px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; min-width: 0; }
+.exports { display: flex; flex-wrap: wrap; gap: 8px; }
+.coverage { margin: 0; color: var(--ink-2); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.msg { margin: 0; min-height: 1.4em; font-size: 13px; color: var(--ink-2); }
+
+.tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: auto; max-height: min(68vh, 720px); }
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13px; }
+th { position: sticky; top: 0; background: var(--surface); text-align: left; font-size: 11.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; z-index: 1; }
+td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: var(--bg); }
+tr.is-dup td { color: var(--ink-2); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.n { display: block; font-weight: 600; }
+.file { display: block; font-family: var(--font-mono); font-size: 11px; color: var(--ink-2); overflow-wrap: anywhere; max-width: 26ch; }
+.mono { font-family: var(--font-mono); font-size: 12px; overflow-wrap: anywhere; }
+.skills { max-width: 30ch; color: var(--ink-2); }
+.muted { color: var(--ink-2); }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.review { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.mute { background: var(--mute-soft); color: var(--ink-2); }
+.issues { display: block; font-size: 11.5px; color: var(--ink-2); margin-top: 4px; max-width: 28ch; }
+.empty { padding: 36px 16px; text-align: center; color: var(--ink-2); }
+.more { display: flex; justify-content: center; }
+
+details.settings { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+details.settings summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+.settings .grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 12px; }
+.settings label { display: flex; flex-direction: column; gap: 5px; font-size: 12.5px; color: var(--ink-2); }
+.settings textarea, .settings input[type="number"] { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); width: 100%; }
+.settings textarea { min-height: 84px; resize: vertical; }
+.settings input[type="number"] { max-width: 110px; }
+.settings .inline { flex-direction: row; align-items: center; gap: 8px; }
+
+.notes { color: var(--ink-2); font-size: 12.5px; display: grid; gap: 6px; max-width: 78ch; }
+.notes p { margin: 0; }
+.notes strong { color: var(--ink); font-weight: 600; }
+.fallback { display: none; }
+.fallback.on { display: block; }
+.fallback textarea { width: 100%; min-height: 110px; font-family: var(--font-mono); font-size: 12px; border: 1px solid var(--line); border-radius: 8px; padding: 8px; background: var(--surface); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<main class="wrap">
+  <header class="top">
+    <div>
+      <h1>CV to Rows</h1>
+      <p class="sub">Drop a folder of CV PDFs and get one spreadsheet row per candidate.</p>
+    </div>
+    <p class="privacy">PDFs are read inside this browser tab. Nothing is uploaded or sent to a server.</p>
+  </header>
+
+  <section class="drop" id="drop" aria-label="Add CV files">
+    <div class="lead">
+      <strong>Drop PDFs or a whole folder here</strong>
+      <span>Text-based PDFs are read directly. Scanned CVs are listed separately for OCR.</span>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="pickFiles" type="button">Choose PDFs</button>
+      <button class="btn" id="pickFolder" type="button">Choose a folder</button>
+    </div>
+    <input id="fileInput" type="file" accept="application/pdf,.pdf" multiple hidden>
+    <input id="folderInput" type="file" webkitdirectory directory multiple hidden>
+  </section>
+
+  <section class="progress" id="progress" hidden aria-live="polite">
+    <div class="row">
+      <strong id="progTitle">Reading CVs</strong>
+      <button class="btn" id="cancelBtn" type="button">Stop</button>
+    </div>
+    <div class="bar"><i id="progBar"></i></div>
+    <div class="meta" id="progMeta"></div>
+  </section>
+
+  <div class="banner" id="sampleBanner">Showing 7 fictional example CVs so you can see the output. Drop your own files to replace them.</div>
+  <div class="banner err" id="engineErr" hidden>The PDF reader did not load. Check the connection and reload this page.</div>
+
+  <section class="bar-tools" aria-label="Filter and export">
+    <div class="chips" id="chips" role="group" aria-label="Filter by status"></div>
+    <span class="spacer"></span>
+    <input class="search" id="search" type="search" placeholder="Search name, role, skill, city" aria-label="Search rows">
+    <div class="exports">
+      <button class="btn primary" id="xlsxBtn" type="button">Download Excel</button>
+      <button class="btn" id="csvBtn" type="button">Download CSV</button>
+      <button class="btn" id="copyBtn" type="button">Copy for Excel</button>
+    </div>
+  </section>
+  <p class="coverage" id="coverage"></p>
+  <p class="msg" id="msg" role="status"></p>
+  <div class="fallback" id="fallback">
+    <textarea id="fallbackText" readonly aria-label="Table text to copy"></textarea>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Candidate</th><th>Email</th><th>Phone</th><th>Location</th><th>Current role</th><th>Company</th>
+          <th class="num">Exp (yrs)</th><th>Education</th><th>Skills</th><th>Notice</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden>No rows match this filter.</div>
+  </div>
+  <div class="more"><button class="btn" id="moreBtn" type="button" hidden>Show more</button></div>
+
+  <details class="settings">
+    <summary>Detection settings</summary>
+    <div class="grid">
+      <label for="skillsBox">Skills to look for, separated by commas. Add the terms your client hires for.
+        <textarea id="skillsBox" spellcheck="false"></textarea>
+      </label>
+      <label for="maxPages">Pages read per CV
+        <input id="maxPages" type="number" min="1" max="20" value="6">
+      </label>
+      <div><button class="btn" id="applyBtn" type="button">Apply skills to loaded CVs</button></div>
+    </div>
+  </details>
+
+  <section class="notes">
+    <p><strong>How it works.</strong> The page reads the text layer of each PDF and pulls out contact details, current role, company, experience, education, skills, notice period and CTC using pattern rules.</p>
+    <p><strong>What to expect.</strong> Email, phone and LinkedIn are reliable. Role, company and experience are best-effort and flagged under Review when unsure. Two-column or heavily designed CVs parse less cleanly. Scanned CVs need OCR first.</p>
+    <p><strong>Size.</strong> This tab handles batches of a few hundred to a few thousand CVs. For a full 10,000-file dump, run the same extraction as a script.</p>
+    <p><strong>Next step.</strong> The Excel file includes blank Verification status, Last verified and Consent to contact columns, ready for the WhatsApp or Telegram confirmation round.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* CV text -> structured row. Pure functions, no DOM. Works in browser and Node. */
+(function (root) {
+  'use strict';
+
+  var DEFAULT_SKILLS = [
+    'Revit', 'Navisworks', 'AutoCAD', 'BIM', 'Dynamo', 'ISO 19650', 'Clash Detection', '4D', '5D', 'ArchiCAD',
+    'SketchUp', 'Lumion', 'Primavera', 'MS Project', 'Quantity Surveying', 'Estimation', 'Billing',
+    'Site Execution', 'Project Management', 'Stakeholder Management',
+    'Python', 'SQL', 'Excel', 'Power BI', 'Tableau', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'Java',
+    'AWS', 'Azure', 'Docker', 'Machine Learning',
+    'Recruitment', 'Talent Acquisition', 'Sourcing', 'Onboarding', 'Payroll', 'HRIS', 'Employee Engagement',
+    'Sales', 'Business Development'
+  ];
+
+  var CITY_LIST = [
+    ['New Delhi', 'New Delhi'], ['Delhi NCR', 'Delhi NCR'], ['Delhi', 'Delhi'], ['Gurugram', 'Gurugram'],
+    ['Gurgaon', 'Gurugram'], ['Greater Noida', 'Greater Noida'], ['Noida', 'Noida'], ['Ghaziabad', 'Ghaziabad'],
+    ['Faridabad', 'Faridabad'], ['Navi Mumbai', 'Navi Mumbai'], ['Mumbai', 'Mumbai'], ['Thane', 'Thane'],
+    ['Pune', 'Pune'], ['Bengaluru', 'Bengaluru'], ['Bangalore', 'Bengaluru'], ['Hyderabad', 'Hyderabad'],
+    ['Chennai', 'Chennai'], ['Kolkata', 'Kolkata'], ['Ahmedabad', 'Ahmedabad'], ['Jaipur', 'Jaipur'],
+    ['Lucknow', 'Lucknow'], ['Chandigarh', 'Chandigarh'], ['Indore', 'Indore'], ['Kochi', 'Kochi'],
+    ['Nagpur', 'Nagpur'], ['Bhopal', 'Bhopal'], ['Dehradun', 'Dehradun'], ['Dubai', 'Dubai'],
+    ['Abu Dhabi', 'Abu Dhabi'], ['Riyadh', 'Riyadh'], ['Doha', 'Doha'], ['Singapore', 'Singapore']
+  ].sort(function (a, b) { return b[0].length - a[0].length; });
+
+  var MONTHS = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+  var MON = '(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sept?(?:ember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)';
+  var DATE_S = '(?:' + MON + "\\.?\\s*,?\\s*'?(?:19|20)?\\d{2}(?!\\d)|\\d{1,2}\\s*[\\/.\\-]\\s*(?:19|20)\\d{2}|(?:19|20)\\d{2})";
+  var END_S = '(?:' + DATE_S + '|present|current|till\\s*date|till\\s*now|to\\s*date|now|ongoing|date|today)';
+  var RANGE_SRC = '(' + DATE_S + ')\\s*(?:-|\\u2013|\\u2014|to|till|until|through)\\s*(' + END_S + ')';
+
+  var TITLE_KW = /\b(engineer|manager|architect|developer|analyst|consultant|executive|lead|director|designer|coordinator|specialist|officer|associate|intern|head|recruiter|supervisor|administrator|scientist|programmer|technician|draftsman|drafter|modell?er|planner|surveyor|accountant|assistant|trainee|partner|founder|president|vp|ceo|cto|cfo|coo|manager|owner|principal|trainer|advisor|adviser|strategist|representative|generalist)\b/i;
+  var STRONG_CO = /\b(pvt|private|ltd|limited|llp|llc|inc|corp|corporation)\b/i;
+  var COMPANY_KW = /\b(technologies|technology|solutions|consultants?|consulting|studio|associates|group|infra|infrastructure|constructions?|builders|developers|enterprises|industries|architects|partners|labs|systems|pvt|private|ltd|limited|llp|llc|inc|corp|corporation)\b/i;
+  var NOT_NAME = /resume|curriculum|vitae|\bcv\b|profile|contact|summary|objective|career|experience|education|skills|address|e-?mail|phone|mobile|linkedin|declaration|personal|details|page|references|bio-?data|date of birth|\bdob\b|bachelor|master|university|college|institute|school|seeking|looking|india|pradesh|nadu|maharashtra|karnataka|haryana|gujarat|rajasthan|kerala|punjab|portfolio|github|www|http/i;
+
+  var HEADS = [
+    ['experience', /^(?:work(?:ing)?\s+|professional\s+|employment\s+|career\s+)?(?:experience|history)(?:\s+summary)?$|^employment$|^employment\s+details$/i],
+    ['education', /^(?:educational?|academic)(?:\s+(?:qualifications?|background|details|profile))?$|^qualifications?$|^education$/i],
+    ['skills', /^(?:(?:key|core|technical|it|professional|software)\s+)?skills?(?:\s+(?:summary|set))?$|^technical\s+proficiency$|^skills\s*&\s*tools$/i],
+    ['other', /^(?:projects?|key\s+projects?|certifications?|summary|professional\s+summary|career\s+(?:objective|summary)|objective|profile|profile\s+summary|personal\s+(?:details|information|profile)|declaration|achievements|languages|interests|hobbies|references|training|courses|awards|responsibilities)$/i]
+  ];
+
+  var DEGREES = [
+    [5, 'PhD', /\bph\.?\s?d\b|\bdoctorate\b/i],
+    [4, 'M.Arch', /\bm\.\s?arch\b|\bmaster(?:s)? of architecture\b/i],
+    [4, 'M.Tech', /\bm\.\s?tech\b|\bmaster(?:s)? of technology\b/i],
+    [4, 'MBA', /\bmba\b|\bpgdm\b|\bpgp\b/i],
+    [4, 'M.Sc', /\bm\.\s?sc\b|\bmaster(?:s)? of science\b/i],
+    [4, 'M.Com', /\bm\.\s?com\b/i],
+    [4, 'MCA', /\bmca\b/i],
+    [4, 'Master\'s', /\bmaster(?:s)?\b/i],
+    [3, 'B.Arch', /\bb\.\s?arch\b|\bbachelor(?:s)? of architecture\b/i],
+    [3, 'B.Tech/B.E.', /\bb\.\s?tech\b|\bbachelor(?:s)? of (?:technology|engineering)\b/i],
+    [3, 'B.Sc', /\bb\.\s?sc\b|\bbachelor(?:s)? of science\b/i],
+    [3, 'B.Com', /\bb\.\s?com\b/i],
+    [3, 'BBA', /\bbba\b/i],
+    [3, 'BCA', /\bbca\b/i],
+    [3, 'Bachelor\'s', /\bbachelor(?:s)?\b|\bgraduat(?:e|ion)\b/i],
+    [2, 'Diploma', /\bdiploma\b/i]
+  ];
+
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function titleCase(s) {
+    return s.toLowerCase().replace(/(^|[\s.'\-])([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); });
+  }
+  function allCaps(s) { return s === s.toUpperCase() && /[A-Z]/.test(s); }
+  function cityIn(s) {
+    var best = '', bestAt = Infinity;
+    for (var i = 0; i < CITY_LIST.length; i++) {
+      var m = new RegExp('(^|[^A-Za-z])' + esc(CITY_LIST[i][0]) + '(?![A-Za-z])', 'i').exec(s);
+      if (m && m.index < bestAt) { bestAt = m.index; best = CITY_LIST[i][1]; }
+    }
+    return best;
+  }
+  function isCityPiece(p) {
+    var c = cityIn(p);
+    return !!c && p.replace(new RegExp(esc(c), 'i'), '').replace(/[^A-Za-z]/g, '').length < 4;
+  }
+  function isBullet(l) { return /^\s*[•●▪■◦*‣]/.test(l); }
+
+  function splitSections(lines) {
+    var sec = { header: [], experience: [], education: [], skills: [], other: [] };
+    var cur = 'header';
+    lines.forEach(function (raw) {
+      var clean = raw.replace(/\s{2,}/g, ' ').replace(/[:\-–_•*#|]+\s*$/, '').replace(/^[•*#\-–_|\s]+/, '').trim();
+      var hit = null;
+      if (clean.length > 0 && clean.length <= 42) {
+        for (var i = 0; i < HEADS.length; i++) { if (HEADS[i][1].test(clean)) { hit = HEADS[i][0]; break; } }
+      }
+      if (hit) { cur = hit; return; }
+      sec[cur].push(raw);
+    });
+    return sec;
+  }
+
+  function monthIdx(s, isEnd, nowIdx) {
+    s = s.toLowerCase().trim();
+    if (!/\d/.test(s)) return nowIdx;
+    var m = s.match(new RegExp('(' + MON + ")\\.?\\s*,?\\s*'?((?:19|20)?\\d{2})", 'i'));
+    if (m) {
+      var y = +m[2]; if (y < 100) y += y > 50 ? 1900 : 2000;
+      return y * 12 + MONTHS[m[1].slice(0, 3).toLowerCase()];
+    }
+    m = s.match(/(\d{1,2})\s*[\/.\-]\s*((?:19|20)\d{2})/);
+    if (m) return +m[2] * 12 + (+m[1] - 1);
+    m = s.match(/((?:19|20)\d{2})/);
+    if (m) return +m[1] * 12 + 6;
+    return null;
+  }
+
+  function findRanges(lines, nowIdx) {
+    var out = [];
+    lines.forEach(function (ln, i) {
+      var it = ln.matchAll(new RegExp(RANGE_SRC, 'gi'));
+      for (var r = it.next(); !r.done; r = it.next()) {
+        var m = r.value;
+        var s = monthIdx(m[1], false, nowIdx), e = monthIdx(m[2], true, nowIdx);
+        if (s == null || e == null || e < s || e - s > 45 * 12) continue;
+        out.push({ line: i, start: s, end: e, present: !/\d/.test(m[2]) });
+      }
+    });
+    return out;
+  }
+
+  function totalYears(ranges) {
+    if (!ranges.length) return '';
+    var rs = ranges.slice().sort(function (a, b) { return a.start - b.start; });
+    var total = 0, cs = rs[0].start, ce = rs[0].end;
+    for (var i = 1; i < rs.length; i++) {
+      if (rs[i].start <= ce) { ce = Math.max(ce, rs[i].end); }
+      else { total += ce - cs; cs = rs[i].start; ce = rs[i].end; }
+    }
+    total += ce - cs;
+    return Math.round(total / 12 * 10) / 10;
+  }
+
+  function pieces(line) {
+    var l = line.replace(new RegExp(RANGE_SRC, 'gi'), ' ').replace(/\b(?:present|current)\b/ig, ' ');
+    l = l.replace(/^[•●▪■◦*\-–\s]+/, '');
+    return l.split(/\s{2,}|\s*\|\s*|\s+[–—-]\s+|\s*,\s*|\s+at\s+|\s*@\s*|\t|•|\(|\)/)
+      .map(function (s) { return s.replace(/^(?:designation|role|position|title|company|employer|organi[sz]ation)\s*[:\-]\s*/i, '').trim(); })
+      .filter(function (s) { return s.length >= 2 && s.length <= 70 && !/^[\d\W]+$/.test(s); });
+  }
+
+  function usableNeighbour(ln, idx, ranges, cur) {
+    if (isBullet(ln) || ln.length > 90) return false;
+    if (/;\s*$/.test(ln) || (/\.\s*$/.test(ln) && !STRONG_CO.test(ln))) return false;
+    return !ranges.some(function (r) { return r.line === idx && r !== cur; });
+  }
+
+  function hasRoleWords(ln) {
+    return pieces(ln).some(function (p) { return TITLE_KW.test(p) || STRONG_CO.test(p) || COMPANY_KW.test(p); });
+  }
+
+  function layoutOrder(expLines, ranges) {
+    var byLine = ranges.slice().sort(function (a, b) { return a.line - b.line; });
+    var first = byLine[0], last = byLine[byLine.length - 1];
+    function probe(r, offsets) {
+      return offsets.some(function (d) {
+        var i = r.line + d;
+        return i >= 0 && i < expLines.length && usableNeighbour(expLines[i], i, ranges, r) && hasRoleWords(expLines[i]);
+      });
+    }
+    var up = probe(first, [-1, -2]), down = probe(last, [1, 2]);
+    if (up && !down) return [0, -1, -2, 1, 2];
+    if (down && !up) return [0, 1, 2, -1, -2];
+    return [0, -1, 1, -2, 2];
+  }
+
+  function extractRole(expLines, ranges) {
+    if (!ranges.length) return { title: '', company: '' };
+    var cur = ranges.slice().sort(function (a, b) { return b.end - a.end || a.line - b.line; })[0];
+    var order = layoutOrder(expLines, ranges);
+    var title = '', company = '', titleLine = -1;
+    for (var k = 0; k < order.length; k++) {
+      var d = order[k], idx = cur.line + d;
+      if (idx < 0 || idx >= expLines.length) continue;
+      var ln = expLines[idx];
+      if (d !== 0 && !usableNeighbour(ln, idx, ranges, cur)) continue;
+      var ps = pieces(ln);
+      if (!title) {
+        var t = ps.filter(function (p) { return TITLE_KW.test(p) && !STRONG_CO.test(p); })[0];
+        if (t) { title = t; titleLine = idx; }
+      }
+      if (!company) {
+        var c = ps.filter(function (p) { return p !== title && (STRONG_CO.test(p) || (COMPANY_KW.test(p) && !TITLE_KW.test(p))); })[0];
+        if (c) company = c;
+      }
+      if (title && company) break;
+    }
+    if (title && !company && titleLine >= 0) {
+      var tryLines = [titleLine, titleLine + 1, titleLine - 1];
+      for (var j = 0; j < tryLines.length && !company; j++) {
+        var li = tryLines[j];
+        if (li < 0 || li >= expLines.length) continue;
+        var l2 = expLines[li];
+        if (li !== titleLine && (isBullet(l2) || l2.length > 70 || /[.;]\s*$/.test(l2))) continue;
+        company = pieces(l2).filter(function (p) {
+          return p !== title && !TITLE_KW.test(p) && !isCityPiece(p) && /^[A-Z]/.test(p) && !/\d/.test(p) && p.length <= 50;
+        })[0] || '';
+      }
+    }
+    return { title: title, company: company };
+  }
+
+  function findPhone(text, lines) {
+    var indian = /(?<!\d)(?:\+?\s?91[\s\-.]*|0)?([6-9](?:[\s\-.]?\d){9})(?!\d)/;
+    var scopes = [lines.slice(0, 25).join('\n'), text];
+    for (var i = 0; i < scopes.length; i++) {
+      var m = indian.exec(scopes[i]);
+      if (m) {
+        var d = m[1].replace(/\D/g, '');
+        return '+91 ' + d.slice(0, 5) + ' ' + d.slice(5);
+      }
+    }
+    var intl = /\+\d{1,3}[\s\-.()]*\d[\d\s\-.()]{7,14}\d/.exec(text);
+    if (intl) {
+      var digits = intl[0].replace(/\D/g, '');
+      if (digits.length >= 9 && digits.length <= 15) return intl[0].replace(/\s+/g, ' ').trim();
+    }
+    return '';
+  }
+
+  function findName(lines, filename, email) {
+    var head = lines.slice(0, 12);
+    for (var i = 0; i < head.length; i++) {
+      var labelled = /^\s*(?:full\s+)?name\s*[:\-]\s*(.+)$/i.exec(head[i]);
+      var cands = labelled ? [labelled[1]] : head[i].split(/\s{2,}|\||•|·|–|—|,|\t/);
+      for (var j = 0; j < cands.length; j++) {
+        var p = cands[j].trim().replace(/^(?:mr|mrs|ms|miss|dr)\.?\s+/i, '');
+        if (p.length < 4 || p.length > 40) continue;
+        if (/[\d@]/.test(p) || NOT_NAME.test(p) || TITLE_KW.test(p) || COMPANY_KW.test(p) || STRONG_CO.test(p) || isCityPiece(p)) continue;
+        var words = p.split(/\s+/);
+        if (words.length < 2 || words.length > 4) continue;
+        if (!words.every(function (w) { return /^[A-Za-z][A-Za-z.'\-]*$/.test(w); })) continue;
+        return { name: allCaps(p) ? titleCase(p) : p, fromText: true };
+      }
+    }
+    var base = (filename || '').replace(/\.[a-z0-9]+$/i, '').replace(/[_\-.]+/g, ' ')
+      .replace(/\b(resume|cv|curriculum|vitae|updated|latest|final|new|naukri|copy|scan|scanned|img|image|doc|document|file|untitled|download|page|\d+)\b/gi, ' ').replace(/\s+/g, ' ').trim();
+    if (base && /^[A-Za-z ]{3,40}$/.test(base)) {
+      return { name: titleCase(base), fromText: false };
+    }
+    if (email) {
+      var local = email.split('@')[0].replace(/[._\-\d]+/g, ' ').trim();
+      if (/^[A-Za-z ]{3,40}$/.test(local)) return { name: titleCase(local), fromText: false };
+    }
+    return { name: '', fromText: false };
+  }
+
+  function findEducation(sections, text) {
+    var scope = sections.education.length ? sections.education.join('\n') : text;
+    var best = null;
+    DEGREES.forEach(function (d) {
+      if (d[2].test(scope) && (!best || d[0] > best[0])) best = d;
+    });
+    if (!best && sections.education.length) {
+      var up = /\bB\.?E\b(?!\w)/.test(sections.education.join('\n'));
+      if (up) return 'B.Tech/B.E.';
+    }
+    return best ? best[1] : '';
+  }
+
+  function findSkills(text, skillList) {
+    var found = [];
+    skillList.forEach(function (sk) {
+      var s = sk.trim(); if (!s) return;
+      var m = new RegExp('(^|[^A-Za-z0-9])' + esc(s).replace(/\\? /g, '\\s+') + '(?![A-Za-z0-9])', 'i').exec(text);
+      if (m) found.push({ s: s, i: m.index });
+    });
+    found.sort(function (a, b) { return a.i - b.i; });
+    return found.slice(0, 15).map(function (f) { return f.s; });
+  }
+
+  function findExperienceStated(lines) {
+    var scope = lines.slice(0, 45).join('\n');
+    var a = /(\d{1,2}(?:\.\d{1,2})?)\s*\+?\s*(?:years?|yrs?)(?:\s*(?:and\s*)?(\d{1,2})\s*months?)?\s*(?:of\s+)?(?:total\s+|overall\s+|professional\s+|relevant\s+|work\s+|industry\s+)*experience/i.exec(scope);
+    if (a) return Math.round((parseFloat(a[1]) + (a[2] ? parseInt(a[2], 10) / 12 : 0)) * 10) / 10;
+    var b = /experience\s*(?:of|:|-|–)?\s*(\d{1,2}(?:\.\d{1,2})?)\s*\+?\s*(?:years?|yrs?)/i.exec(scope);
+    if (b) return parseFloat(b[1]);
+    return '';
+  }
+
+  function findNotice(text) {
+    var m = /notice\s*period\s*(?:is|of)?\s*[:\-–]?\s*([A-Za-z0-9 +\-]{1,24})/i.exec(text);
+    if (m) {
+      var v = m[1].replace(/\s+(?:current|expected|ctc|salary|location|total)\b.*$/i, '').trim();
+      if (/immediate/i.test(v)) return 'Immediate';
+      var n = /^(\d{1,3})\s*(days?|months?|weeks?)/i.exec(v);
+      if (n) return n[1] + ' ' + n[2].toLowerCase().replace(/s$/, '') + (n[1] === '1' ? '' : 's');
+      return v.slice(0, 20);
+    }
+    if (/immediate(?:ly)?\s+(?:joiner|joining|available)/i.test(text)) return 'Immediate';
+    var w = /(\d{1,3})\s*(days?|months?|weeks?)\s*notice/i.exec(text);
+    if (w) return w[1] + ' ' + w[2].toLowerCase().replace(/s$/, '') + (w[1] === '1' ? '' : 's');
+    return '';
+  }
+
+  function findCtc(text, kind) {
+    var re = new RegExp(kind + '\\s*(?:ctc|salary|compensation|package)\\s*[:\\-\\u2013]?\\s*((?:\\u20B9|rs\\.?|inr)?\\s*[\\d.,]+\\s*(?:lpa|lacs?|lakhs?|l|k|cr|crores?|per\\s+annum|p\\.?a\\.?)?)', 'i');
+    var m = re.exec(text);
+    return m ? m[1].replace(/\s+/g, ' ').trim() : '';
+  }
+
+  function findLocation(lines, text) {
+    var lab = /(?:current\s+location|location|city|residing\s+(?:at|in)|based\s+in|place)\s*[:\-–]\s*([^\n]{2,60})/i.exec(text);
+    if (lab) {
+      var c = cityIn(lab[1]);
+      if (c) return c;
+      var raw = lab[1].split(/\s{2,}|\||;/)[0].trim();
+      if (raw && raw.length <= 40 && !/\d{4,}/.test(raw)) return raw;
+    }
+    return cityIn(lines.slice(0, 15).join('\n'));
+  }
+
+  function parseCV(rawText, filename, opts) {
+    opts = opts || {};
+    var skillList = opts.skills || DEFAULT_SKILLS;
+    var now = opts.now || new Date();
+    var nowIdx = now.getFullYear() * 12 + now.getMonth();
+    var text = (rawText || '').replace(/ /g, ' ').replace(/\r/g, '');
+    var lines = text.split('\n').map(function (l) { return l.replace(/[ \t]+$/, '').replace(/^[ \t]+/, ''); })
+      .filter(function (l) { return l.length > 0; });
+    var flat = lines.join('\n');
+
+    var row = {
+      file: filename || '', name: '', email: '', phone: '', linkedin: '', location: '', title: '', company: '',
+      experience: '', education: '', skills: [], notice: '', currentCtc: '', expectedCtc: '',
+      status: 'OK', issues: []
+    };
+
+    if (flat.replace(/\s/g, '').length < 100) {
+      row.status = 'No text';
+      row.issues.push('Little or no text found. Likely a scanned image, needs OCR.');
+      var nm0 = findName([], filename, '');
+      row.name = nm0.name;
+      return row;
+    }
+
+    var em = /[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}/.exec(flat);
+    row.email = em ? em[0].toLowerCase().replace(/[.,;]+$/, '') : '';
+    row.phone = findPhone(flat, lines);
+    var li = /(?:https?:\/\/)?(?:[a-z]{2,3}\.)?linkedin\.com\/in\/[A-Za-z0-9\-_%]+/i.exec(flat);
+    row.linkedin = li ? li[0].replace(/^(?!https?:)/i, 'https://') : '';
+
+    var nm = findName(lines, filename, row.email);
+    row.name = nm.name;
+
+    var sections = splitSections(lines);
+    var expLines = sections.experience.length ? sections.experience : sections.header.concat(sections.other);
+    var ranges = findRanges(expLines, nowIdx);
+    var role = extractRole(expLines, ranges);
+    row.title = role.title;
+    row.company = role.company;
+
+    var stated = findExperienceStated(lines);
+    var computed = totalYears(ranges);
+    row.experience = stated !== '' ? stated : computed;
+    var expEstimated = stated === '' && computed !== '';
+
+    row.education = findEducation(sections, flat);
+    row.skills = findSkills(flat, skillList);
+    row.location = findLocation(lines, flat);
+    row.notice = findNotice(flat);
+    row.currentCtc = findCtc(flat, 'current');
+    row.expectedCtc = findCtc(flat, 'expected');
+
+    if (!row.email) row.issues.push('No email');
+    if (!row.phone) row.issues.push('No phone');
+    if (!nm.fromText) row.issues.push(row.name ? 'Name taken from file name' : 'No name found');
+    if (!row.title) row.issues.push('Current role not found');
+    if (row.title && !row.company) row.issues.push('Company not found');
+    if (expEstimated) row.issues.push('Experience estimated from dates');
+
+    var score = [nm.fromText, row.email, row.phone, row.title, row.company, row.experience !== '', row.skills.length > 0]
+      .filter(Boolean).length;
+    row.status = ((row.email || row.phone) && nm.fromText && score >= 5) ? 'OK' : 'Review';
+    return row;
+  }
+
+  var api = { parseCV: parseCV, DEFAULT_SKILLS: DEFAULT_SKILLS };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.CVParser = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+/* PDF -> text lines using pdf.js. Shared by the page and the Node test. */
+(function (root) {
+  'use strict';
+  function itemsToLines(items) {
+    var rows = [];
+    items.forEach(function (it) {
+      if (it.str === '' || !it.transform) return;
+      var y = it.transform[5], x = it.transform[4];
+      var row = null;
+      for (var i = 0; i < rows.length; i++) { if (Math.abs(rows[i].y - y) <= 3) { row = rows[i]; break; } }
+      if (!row) { row = { y: y, items: [] }; rows.push(row); }
+      row.items.push({ x: x, w: it.width || 0, s: it.str });
+    });
+    rows.sort(function (a, b) { return b.y - a.y; });
+    return rows.map(function (r) {
+      r.items.sort(function (a, b) { return a.x - b.x; });
+      var line = '', px = null;
+      r.items.forEach(function (it) {
+        if (px !== null) {
+          var gap = it.x - px;
+          if (gap > 14) line += '   ';
+          else if (gap > 0.8 && !/\s$/.test(line) && !/^\s/.test(it.s)) line += ' ';
+        }
+        line += it.s;
+        px = it.x + it.w;
+      });
+      return line.replace(/(^|[^ ]) {2}(?! )/g, '$1 ').replace(/\s+$/, '');
+    }).filter(function (l) { return l.trim().length; }).join('\n');
+  }
+
+  async function extractText(pdfjsLib, data, maxPages) {
+    var doc = await pdfjsLib.getDocument({ data: data, useSystemFonts: true, isEvalSupported: false, disableFontFace: true }).promise;
+    var n = Math.min(doc.numPages, maxPages || 6), out = [];
+    try {
+      for (var p = 1; p <= n; p++) {
+        var page = await doc.getPage(p);
+        var tc = await page.getTextContent();
+        out.push(itemsToLines(tc.items));
+        page.cleanup();
+      }
+    } finally { await doc.destroy(); }
+    return { text: out.join('\n'), pages: doc.numPages };
+  }
+  var api = { extractText: extractText, itemsToLines: itemsToLines };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.CVExtract = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+/* Fictional sample CVs (text as a PDF extractor would return it). Names, numbers and emails are invented. */
+(function (root) {
+  var SAMPLES = [
+    {
+      file: 'Neha_Verma_CV.pdf',
+      text: [
+        'NEHA VERMA',
+        'Senior BIM Engineer',
+        'neha.verma@example.com   |   +91 90000 00101   |   Gurgaon, Haryana',
+        'linkedin.com/in/neha-verma-bim',
+        'PROFESSIONAL SUMMARY',
+        'BIM Engineer with 9+ years of experience in Revit modelling, Navisworks coordination and ISO 19650 workflows for commercial and infrastructure projects.',
+        'WORK EXPERIENCE',
+        'Senior BIM Engineer   Mar 2021 - Present',
+        'Arcon Design Consultants Pvt Ltd, Gurugram',
+        '- Led clash detection across 14 MEP and structural models in Navisworks',
+        '- Set up 4D/5D workflows with Primavera',
+        'BIM Modeller   Jul 2015 - Feb 2021',
+        'Studio Prisma Architects, New Delhi',
+        'EDUCATION',
+        'B.Arch, School of Planning and Architecture, 2015',
+        'SKILLS',
+        'Revit, Navisworks, Dynamo, AutoCAD, Python',
+        'Notice Period: 60 days   Current CTC: 18 LPA   Expected CTC: 24 LPA'
+      ].join('\n')
+    },
+    {
+      file: 'Rohit_Malhotra_Resume.pdf',
+      text: [
+        'RESUME',
+        'Name: Rohit Malhotra',
+        'Email: rohit.malhotra@example.com',
+        'Mobile: 9000000202',
+        'Location: Mumbai',
+        'CAREER OBJECTIVE',
+        'Seeking a senior role in talent acquisition for a growing technology firm.',
+        'EXPERIENCE',
+        'Talent Acquisition Lead at Brightpath Staffing Solutions Pvt. Ltd.',
+        'Jan 2019 - Present',
+        '- Closed 120+ tech and non-tech positions per year through sourcing and referrals',
+        'Recruitment Executive at Kestrel HR Services',
+        'Jun 2014 - Dec 2018',
+        'EDUCATION',
+        'MBA (Human Resources), 2014',
+        'B.Com, 2012',
+        'KEY SKILLS',
+        'Recruitment, Sourcing, Onboarding, Payroll, Excel, HRIS',
+        'Immediate joiner'
+      ].join('\n')
+    },
+    {
+      file: 'sanjay iyer cv final.pdf',
+      text: [
+        'Sanjay Iyer',
+        'Data Analyst',
+        'Bengaluru   sanjay.iyer@example.com   +91-90000-00303',
+        'Summary',
+        'Analyst with 4 years of experience building dashboards in Power BI and Tableau, with SQL and Python for data preparation.',
+        'Experience',
+        'Data Analyst | Northfield Analytics Pvt Ltd | Aug 2022 - Present',
+        'Junior Analyst | Greenleaf Retail Technologies | 06/2020 - 07/2022',
+        'Education',
+        'B.Tech in Computer Science, 2020',
+        'Technical Skills',
+        'SQL, Python, Power BI, Tableau, Excel, Azure',
+        'Notice period: 30 days'
+      ].join('\n')
+    },
+    {
+      file: 'Arjun_Nair_Site_Engineer.pdf',
+      text: [
+        'ARJUN NAIR',
+        'Mobile: +91 90000 00404',
+        'Pune, Maharashtra',
+        'Objective: To work as a site engineer on large residential and infrastructure projects where I can grow with the team.',
+        'Work Experience',
+        'Site Engineer, Landmark Constructions Pvt Ltd   2018 - 2024',
+        'Responsible for site execution, billing, quantity surveying and coordination with contractors and consultants.',
+        'Education',
+        'Diploma in Civil Engineering, 2018',
+        'Skills',
+        'AutoCAD, Site Execution, Billing, Quantity Surveying, MS Project'
+      ].join('\n')
+    },
+    {
+      file: 'Neha_Verma_Resume_Updated.pdf',
+      text: [
+        'Neha Verma',
+        'BIM Engineer | Revit | Navisworks',
+        'Email: neha.verma@example.com  Phone: 90000 00101',
+        'Profile',
+        'BIM professional, 9 years of experience in architecture and infrastructure coordination.',
+        'Experience',
+        'BIM Engineer - Arcon Design Consultants Pvt Ltd   Mar 2021 - Present',
+        'BIM Modeller - Studio Prisma Architects   Jul 2015 - Feb 2021',
+        'Education',
+        'B.Arch, 2015',
+        'Skills',
+        'Revit, Navisworks, Dynamo, ISO 19650, Clash Detection'
+      ].join('\n')
+    },
+    {
+      file: 'scan_0412.pdf',
+      text: ''
+    },
+    {
+      file: 'Pooja_Rao_Fullstack.pdf',
+      text: [
+        'POOJA RAO',
+        'Full Stack Developer',
+        'pooja.rao@example.com  +91 90000 00606  Hyderabad',
+        'github.com/poojarao-demo',
+        'Summary',
+        'Developer with 6 years of experience shipping React and Node.js products, comfortable with AWS, Docker and SQL.',
+        'Experience',
+        'Software Developer',
+        'Helix Systems Pvt Ltd',
+        'Apr 2020 - Present',
+        'Associate Developer',
+        'Quill Labs',
+        'Jul 2018 - Mar 2020',
+        'Education',
+        'B.E. in Information Technology, 2018',
+        'Skills',
+        'JavaScript, TypeScript, React, Node.js, AWS, Docker, SQL',
+        'Current CTC: 14 LPA   Expected CTC: 20 LPA   Notice Period: 90 days'
+      ].join('\n')
+    }
+  ];
+  if (typeof module !== 'undefined' && module.exports) module.exports = SAMPLES;
+  else root.CVSamples = SAMPLES;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var PAGE = 100;
+  var state = { rows: [], texts: [], filter: 'all', query: '', shown: PAGE, sample: true, running: false, cancel: false, skills: CVParser.DEFAULT_SKILLS.slice() };
+  var dl = null;
+
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function tick() { return new Promise(function (r) { setTimeout(r, 0); }); }
+  function setMsg(t) { $('msg').textContent = t || ''; }
+
+  /* ---------- parsing and bookkeeping ---------- */
+  function parse(text, name) { return CVParser.parseCV(text, name, { skills: state.skills }); }
+
+  function computeDups() {
+    var byEmail = new Map(), byPhone = new Map();
+    state.rows.forEach(function (r, i) {
+      r.dup = false; r.dupOf = '';
+      if (r.status === 'No text') return;
+      var p = (r.phone || '').replace(/\D/g, '').slice(-10);
+      var hit = -1;
+      if (r.email && byEmail.has(r.email)) hit = byEmail.get(r.email);
+      else if (p && byPhone.has(p)) hit = byPhone.get(p);
+      if (hit >= 0) { r.dup = true; r.dupOf = state.rows[hit].file; }
+      else { if (r.email) byEmail.set(r.email, i); if (p) byPhone.set(p, i); }
+    });
+    state.rows.forEach(function (r) {
+      r.hay = [r.name, r.email, r.phone, r.location, r.title, r.company, r.education, r.skills.join(' '), r.file].join(' ').toLowerCase();
+    });
+  }
+  function eff(r) { return r.dup ? 'Duplicate' : r.status; }
+  function label(s) { return s === 'OK' ? 'Ready' : s; }
+
+  /* ---------- rendering ---------- */
+  var FILTERS = [['all', 'All'], ['OK', 'Ready'], ['Review', 'Review'], ['No text', 'No text'], ['Duplicate', 'Duplicate']];
+
+  function counts() {
+    var c = { all: state.rows.length, OK: 0, Review: 0, 'No text': 0, Duplicate: 0 };
+    state.rows.forEach(function (r) { c[eff(r)]++; });
+    return c;
+  }
+
+  function renderChips() {
+    var c = counts();
+    $('chips').innerHTML = FILTERS.map(function (f) {
+      return '<button class="chip" type="button" data-f="' + f[0] + '" aria-pressed="' + (state.filter === f[0]) + '">' + f[1] + ' <b>' + c[f[0]] + '</b></button>';
+    }).join('');
+  }
+
+  function renderCoverage() {
+    var good = state.rows.filter(function (r) { return !r.dup && r.status !== 'No text'; });
+    if (!good.length) { $('coverage').textContent = ''; return; }
+    var fields = [['Email', 'email'], ['Phone', 'phone'], ['Role', 'title'], ['Company', 'company'], ['Experience', 'experience'], ['Education', 'education'], ['Location', 'location']];
+    var parts = fields.map(function (f) {
+      var n = good.filter(function (r) { return r[f[1]] !== '' && r[f[1]] != null; }).length;
+      return f[0] + ' ' + Math.round(n / good.length * 100) + '%';
+    });
+    var sk = good.filter(function (r) { return r.skills.length; }).length;
+    parts.push('Skills ' + Math.round(sk / good.length * 100) + '%');
+    $('coverage').textContent = 'Fields found across ' + good.length + ' readable, unique CVs: ' + parts.join(' · ');
+  }
+
+  function pill(r) {
+    var s = eff(r);
+    var cls = s === 'OK' ? 'ok' : s === 'Review' ? 'review' : s === 'No text' ? 'bad' : 'mute';
+    var issues = r.dup ? 'Same email or phone as ' + r.dupOf : r.issues.join('. ');
+    return '<span class="pill ' + cls + '">' + label(s) + '</span>' + (issues ? '<span class="issues">' + esc(issues) + '</span>' : '');
+  }
+
+  function visible() {
+    var q = state.query.trim().toLowerCase();
+    return state.rows.filter(function (r) {
+      if (state.filter !== 'all' && eff(r) !== state.filter) return false;
+      return !q || r.hay.indexOf(q) !== -1;
+    });
+  }
+
+  function renderTable() {
+    var list = visible();
+    var slice = list.slice(0, state.shown);
+    $('rows').innerHTML = slice.map(function (r) {
+      var dash = '<span class="muted">-</span>';
+      return '<tr class="' + (r.dup ? 'is-dup' : '') + '">' +
+        '<td><span class="n">' + (esc(r.name) || '<span class="muted">Unknown</span>') + '</span><span class="file">' + esc(r.file) + '</span></td>' +
+        '<td class="mono">' + (esc(r.email) || dash) + '</td>' +
+        '<td class="mono">' + (esc(r.phone) || dash) + '</td>' +
+        '<td>' + (esc(r.location) || dash) + '</td>' +
+        '<td>' + (esc(r.title) || dash) + '</td>' +
+        '<td>' + (esc(r.company) || dash) + '</td>' +
+        '<td class="num">' + (r.experience === '' ? dash : esc(r.experience)) + '</td>' +
+        '<td>' + (esc(r.education) || dash) + '</td>' +
+        '<td class="skills">' + (esc(r.skills.join(', ')) || dash) + '</td>' +
+        '<td>' + (esc(r.notice) || dash) + '</td>' +
+        '<td>' + pill(r) + '</td></tr>';
+    }).join('');
+    $('empty').hidden = list.length > 0;
+    var more = $('moreBtn');
+    more.hidden = list.length <= state.shown;
+    more.textContent = 'Show ' + Math.min(PAGE, list.length - state.shown) + ' more (' + (list.length - state.shown) + ' hidden)';
+  }
+
+  function renderAll() {
+    computeDups();
+    renderChips(); renderCoverage(); renderTable();
+    $('sampleBanner').hidden = !state.sample;
+    var has = state.rows.length > 0;
+    $('xlsxBtn').disabled = !has; $('csvBtn').disabled = !has; $('copyBtn').disabled = !has;
+  }
+
+  /* ---------- reading files ---------- */
+  function blankRow(name, why) {
+    return { file: name, name: '', email: '', phone: '', linkedin: '', location: '', title: '', company: '', experience: '', education: '', skills: [], notice: '', currentCtc: '', expectedCtc: '', status: 'No text', issues: [why] };
+  }
+
+  async function processFiles(all) {
+    var files = all.filter(function (f) { return /\.pdf$/i.test(f.name) || f.type === 'application/pdf'; });
+    if (!files.length) { setMsg('No PDF files found in that selection.'); return; }
+    if (!window.pdfjsLib) { $('engineErr').hidden = false; return; }
+    if (state.running) { setMsg('Already reading a batch. Stop it first.'); return; }
+    var maxPages = Math.max(1, Math.min(20, parseInt($('maxPages').value, 10) || 6));
+    state.running = true; state.cancel = false; state.sample = false;
+    state.rows = []; state.texts = []; state.filter = 'all'; state.shown = PAGE;
+    $('progress').hidden = false; $('progTitle').textContent = 'Reading CVs';
+    setMsg('');
+    var t0 = Date.now(), lastPaint = 0;
+    for (var i = 0; i < files.length; i++) {
+      if (state.cancel) break;
+      var f = files[i], row, text = '';
+      try {
+        var buf = new Uint8Array(await f.arrayBuffer());
+        var res = await CVExtract.extractText(window.pdfjsLib, buf, maxPages);
+        text = res.text;
+        row = parse(text, f.name);
+      } catch (e) {
+        row = blankRow(f.name, 'Could not read this file. It may be damaged or password-protected.');
+      }
+      state.rows.push(row); state.texts.push(text);
+      var done = i + 1, secs = (Date.now() - t0) / 1000;
+      $('progBar').style.width = (done / files.length * 100) + '%';
+      var rate = done / Math.max(secs, 0.5), left = Math.round((files.length - done) / rate);
+      $('progMeta').textContent = done + ' of ' + files.length + ' · ' + Math.round(rate * 60) + ' files/min · about ' + (left > 90 ? Math.round(left / 60) + ' min' : left + ' s') + ' left';
+      if (Date.now() - lastPaint > 600) { lastPaint = Date.now(); renderAll(); }
+      await tick();
+    }
+    state.running = false;
+    $('progress').hidden = true;
+    renderAll();
+    var c = counts();
+    setMsg((state.cancel ? 'Stopped. ' : 'Done. ') + state.rows.length + ' files read: ' + c.OK + ' ready, ' + c.Review + ' to review, ' + c['No text'] + ' without text, ' + c.Duplicate + ' duplicates.');
+  }
+
+  async function filesFromDrop(dt) {
+    var entries = [];
+    for (var i = 0; i < dt.items.length; i++) {
+      var en = dt.items[i].webkitGetAsEntry ? dt.items[i].webkitGetAsEntry() : null;
+      if (en) entries.push(en);
+    }
+    if (!entries.length) return Array.prototype.slice.call(dt.files);
+    var out = [];
+    async function walk(en) {
+      if (en.isFile) { out.push(await new Promise(function (res, rej) { en.file(res, rej); })); }
+      else if (en.isDirectory) {
+        var rd = en.createReader(), batch;
+        do {
+          batch = await new Promise(function (res, rej) { rd.readEntries(res, rej); });
+          for (var k = 0; k < batch.length; k++) await walk(batch[k]);
+        } while (batch.length);
+      }
+    }
+    for (var j = 0; j < entries.length; j++) await walk(entries[j]);
+    return out;
+  }
+
+  /* ---------- export ---------- */
+  var COLS = ['Name', 'Email', 'Phone', 'LinkedIn', 'Location', 'Current title', 'Current company', 'Experience (yrs)', 'Education', 'Skills', 'Notice period', 'Current CTC', 'Expected CTC', 'Source file', 'Parse status', 'Issues', 'Verification status', 'Last verified', 'Consent to contact'];
+  function exportRow(r) {
+    return [r.name, r.email, r.phone, r.linkedin, r.location, r.title, r.company, r.experience, r.education, r.skills.join(', '), r.notice, r.currentCtc, r.expectedCtc, r.file, label(eff(r)), r.dup ? 'Same email or phone as ' + r.dupOf : r.issues.join('. '), 'Not contacted', '', ''];
+  }
+  function sheetFrom(rows) {
+    var ws = XLSX.utils.aoa_to_sheet([COLS].concat(rows.map(exportRow)));
+    ws['!cols'] = [22, 28, 17, 30, 14, 26, 30, 9, 13, 40, 12, 12, 12, 28, 11, 34, 16, 13, 16].map(function (w) { return { wch: w }; });
+    ws['!autofilter'] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: Math.max(rows.length, 1), c: COLS.length - 1 } }) };
+    return ws;
+  }
+  function stamp() { return new Date().toISOString().slice(0, 10); }
+
+  function buildWorkbook() {
+    var keep = state.rows.filter(function (r) { return !r.dup && r.status !== 'No text'; });
+    var scans = state.rows.filter(function (r) { return !r.dup && r.status === 'No text'; });
+    var dups = state.rows.filter(function (r) { return r.dup; });
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, sheetFrom(keep), 'Candidates');
+    if (scans.length) XLSX.utils.book_append_sheet(wb, sheetFrom(scans), 'Needs OCR');
+    if (dups.length) XLSX.utils.book_append_sheet(wb, sheetFrom(dups), 'Duplicates');
+    var c = counts();
+    var sum = [['CV to Rows summary'], ['Created', stamp()], ['Files read', state.rows.length], ['Ready', c.OK], ['Review', c.Review], ['No text (needs OCR)', c['No text']], ['Duplicates', c.Duplicate]];
+    if (state.sample) sum.push(['Note', 'Example data only. These CVs are fictional.']);
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(sum), 'Summary');
+    return wb;
+  }
+  function baseName() { return (state.sample ? 'cv-rows-example-' : 'cv-rows-') + stamp(); }
+
+  /* Plain browser download, used when the page runs on a normal site rather than inside Claude. */
+  function browserSave(filename, data) {
+    var type = /\.csv$/i.test(filename) ? 'text/csv;charset=utf-8' : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    var url = URL.createObjectURL(new Blob([data], { type: type }));
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  async function save(filename, data) {
+    if (!dl) { browserSave(filename, data); setMsg('Downloaded ' + filename + '.'); return; }
+    try {
+      var r = await dl.save({ filename: filename, data: data });
+      setMsg(r && r.status === 'saved' ? 'Saved ' + filename + '.' : 'Sent ' + filename + '.');
+    } catch (e) {
+      setMsg(e && e.code === 'declined' ? 'Save cancelled.' : 'Could not save the file here. Try Copy for Excel instead.');
+    }
+  }
+  async function exportXlsx() {
+    if (!window.XLSX) { setMsg('The Excel library did not load. Reload the page and try again.'); return; }
+    var out = XLSX.write(buildWorkbook(), { type: 'array', bookType: 'xlsx' });
+    await save(baseName() + '.xlsx', out);
+  }
+  async function exportCsv() {
+    if (!window.XLSX) { setMsg('The Excel library did not load. Reload the page and try again.'); return; }
+    var keep = state.rows.filter(function (r) { return !r.dup && r.status !== 'No text'; });
+    var csv = XLSX.utils.sheet_to_csv(sheetFrom(keep));
+    await save(baseName() + '.csv', '﻿' + csv);
+  }
+  async function copyRows() {
+    var keep = state.rows.filter(function (r) { return !r.dup && r.status !== 'No text'; });
+    var clean = function (v) { return String(v == null ? '' : v).replace(/[\t\r\n]+/g, ' '); };
+    var tsv = [COLS].concat(keep.map(exportRow)).map(function (row) { return row.map(clean).join('\t'); }).join('\n');
+    try {
+      await navigator.clipboard.writeText(tsv);
+      $('fallback').classList.remove('on');
+      setMsg('Copied ' + keep.length + ' rows. Paste into Excel or Google Sheets.');
+    } catch (e) {
+      $('fallbackText').value = tsv;
+      $('fallback').classList.add('on');
+      $('fallbackText').focus(); $('fallbackText').select();
+      setMsg('Select all in the box below and copy it.');
+    }
+  }
+
+  /* ---------- events ---------- */
+  var drop = $('drop');
+  ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', async function (e) { processFiles(await filesFromDrop(e.dataTransfer)); });
+  $('pickFiles').addEventListener('click', function () { $('fileInput').click(); });
+  $('pickFolder').addEventListener('click', function () { $('folderInput').click(); });
+  $('fileInput').addEventListener('change', function (e) { var f = Array.prototype.slice.call(e.target.files); e.target.value = ''; processFiles(f); });
+  $('folderInput').addEventListener('change', function (e) { var f = Array.prototype.slice.call(e.target.files); e.target.value = ''; processFiles(f); });
+  $('cancelBtn').addEventListener('click', function () { state.cancel = true; });
+  $('chips').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-f]'); if (!b) return;
+    state.filter = b.getAttribute('data-f'); state.shown = PAGE; renderChips(); renderTable();
+  });
+  $('search').addEventListener('input', function (e) { state.query = e.target.value; state.shown = PAGE; renderTable(); });
+  $('moreBtn').addEventListener('click', function () { state.shown += PAGE; renderTable(); });
+  $('xlsxBtn').addEventListener('click', exportXlsx);
+  $('csvBtn').addEventListener('click', exportCsv);
+  $('copyBtn').addEventListener('click', copyRows);
+  $('applyBtn').addEventListener('click', function () {
+    var list = $('skillsBox').value.split(/[,\n]/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!list.length) { setMsg('Add at least one skill.'); return; }
+    state.skills = list;
+    state.rows = state.rows.map(function (r, i) {
+      return r.status === 'No text' ? r : parse(state.texts[i], r.file);
+    });
+    renderAll();
+    setMsg('Skills updated for ' + state.rows.length + ' loaded CVs.');
+  });
+
+  /* ---------- start: example data, engines, capabilities ---------- */
+  $('skillsBox').value = state.skills.join(', ');
+  CVSamples.forEach(function (s) {
+    state.texts.push(s.text);
+    state.rows.push(s.text ? parse(s.text, s.file) : blankRow(s.file, 'Little or no text found. Likely a scanned image, needs OCR.'));
+  });
+  renderAll();
+
+  if (window.pdfjsLib) {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  } else {
+    $('engineErr').hidden = false;
+  }
+  (async function () {
+    try { dl = window.claude && window.claude.use ? await window.claude.use('downloads') : null; } catch (e) { dl = null; }
+  })();
+})();
+</script>
+
+</body></html>
