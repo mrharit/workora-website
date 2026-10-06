@@ -30,3 +30,6 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# separate Python project with its own private repo, secrets and candidate data
+cv-verify-bot/

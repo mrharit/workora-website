@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  server: { port: 5173, open: false },
+  // cv-verify-bot is a separate Python project (with its own venv); the web dev server must not watch it.
+  server: { port: 5173, open: false, watch: { ignored: ['**/cv-verify-bot/**'] } },
 })
